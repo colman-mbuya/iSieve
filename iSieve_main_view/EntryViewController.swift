@@ -28,7 +28,7 @@ class EntryViewController: UIViewController {
         if pwd == rpt {
             Password = pwd
         }
-        // Need to fix this to display some sort of error on non matching password
+        // To do: Need to fix this to display some sort of error on non matching password
         else{
             Password = ""
         }
