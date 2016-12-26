@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F81696A21DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F81696A01DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld */; };
+		F81696AF1DAB150A004DB934 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AB1DAB150A004DB934 /* User+CoreDataProperties.swift */; };
+		F81696B01DAB150A004DB934 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AC1DAB150A004DB934 /* User.swift */; };
+		F81696B11DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AD1DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift */; };
+		F81696B21DAB150A004DB934 /* PasswordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AE1DAB150A004DB934 /* PasswordEntry.swift */; };
+		F85959731D880122006EE20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959721D880122006EE20D /* AppDelegate.swift */; };
+		F85959781D880122006EE20D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F85959761D880122006EE20D /* Main.storyboard */; };
+		F859597A1D880122006EE20D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85959791D880122006EE20D /* Assets.xcassets */; };
+		F859597D1D880122006EE20D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F859597B1D880122006EE20D /* LaunchScreen.storyboard */; };
+		F85959861D88029B006EE20D /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */; };
+		F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959871D8802D0006EE20D /* EntryViewController.swift */; };
+		F8FE4C341DA53C7F0036DA5B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */; };
+		F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F81696A11DAB0FA8004DB934 /* PasswordsDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PasswordsDB.xcdatamodel; sourceTree = "<group>"; };
+		F81696AB1DAB150A004DB934 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F81696AC1DAB150A004DB934 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F81696AD1DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F81696AE1DAB150A004DB934 /* PasswordEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordEntry.swift; sourceTree = "<group>"; };
+		F859596F1D880122006EE20D /* iSieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSieve.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F85959721D880122006EE20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F85959771D880122006EE20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F85959791D880122006EE20D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F859597C1D880122006EE20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F859597E1D880122006EE20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewController.swift; sourceTree = "<group>"; };
+		F85959871D8802D0006EE20D /* EntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
+		F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginLogic.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F859596C1D880122006EE20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F81696B31DAB15EB004DB934 /* Core_Data */ = {
+			isa = PBXGroup;
+			children = (
+				F81696AB1DAB150A004DB934 /* User+CoreDataProperties.swift */,
+				F81696AC1DAB150A004DB934 /* User.swift */,
+				F81696AD1DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift */,
+				F81696AE1DAB150A004DB934 /* PasswordEntry.swift */,
+				F81696A01DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld */,
+			);
+			name = Core_Data;
+			sourceTree = "<group>";
+		};
+		F85959661D880122006EE20D = {
+			isa = PBXGroup;
+			children = (
+				F85959711D880122006EE20D /* iSieve_main_view */,
+				F85959701D880122006EE20D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F85959701D880122006EE20D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F859596F1D880122006EE20D /* iSieve.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F85959711D880122006EE20D /* iSieve_main_view */ = {
+			isa = PBXGroup;
+			children = (
+				F85959721D880122006EE20D /* AppDelegate.swift */,
+				F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */,
+				F85959761D880122006EE20D /* Main.storyboard */,
+				F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */,
+				F85959871D8802D0006EE20D /* EntryViewController.swift */,
+				F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */,
+				F81696B31DAB15EB004DB934 /* Core_Data */,
+				F85959841D880159006EE20D /* Supporting_Files */,
+			);
+			path = iSieve_main_view;
+			sourceTree = "<group>";
+		};
+		F85959841D880159006EE20D /* Supporting_Files */ = {
+			isa = PBXGroup;
+			children = (
+				F85959791D880122006EE20D /* Assets.xcassets */,
+				F859597B1D880122006EE20D /* LaunchScreen.storyboard */,
+				F859597E1D880122006EE20D /* Info.plist */,
+			);
+			name = Supporting_Files;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F859596E1D880122006EE20D /* iSieve */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F85959811D880122006EE20D /* Build configuration list for PBXNativeTarget "iSieve" */;
+			buildPhases = (
+				F859596B1D880122006EE20D /* Sources */,
+				F859596C1D880122006EE20D /* Frameworks */,
+				F859596D1D880122006EE20D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iSieve;
+			productName = iSieve_main_view;
+			productReference = F859596F1D880122006EE20D /* iSieve.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F85959671D880122006EE20D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Marty Mcfly";
+				TargetAttributes = {
+					F859596E1D880122006EE20D = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 98TJ79LRBH;
+					};
+				};
+			};
+			buildConfigurationList = F859596A1D880122006EE20D /* Build configuration list for PBXProject "iSieve" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F85959661D880122006EE20D;
+			productRefGroup = F85959701D880122006EE20D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F859596E1D880122006EE20D /* iSieve */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F859596D1D880122006EE20D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F859597D1D880122006EE20D /* LaunchScreen.storyboard in Resources */,
+				F859597A1D880122006EE20D /* Assets.xcassets in Resources */,
+				F85959781D880122006EE20D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F859596B1D880122006EE20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F81696A21DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld in Sources */,
+				F81696B11DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift in Sources */,
+				F8FE4C341DA53C7F0036DA5B /* LoginViewController.swift in Sources */,
+				F85959861D88029B006EE20D /* AllEntriesTableViewController.swift in Sources */,
+				F81696AF1DAB150A004DB934 /* User+CoreDataProperties.swift in Sources */,
+				F81696B01DAB150A004DB934 /* User.swift in Sources */,
+				F85959731D880122006EE20D /* AppDelegate.swift in Sources */,
+				F81696B21DAB150A004DB934 /* PasswordEntry.swift in Sources */,
+				F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */,
+				F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F85959761D880122006EE20D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F85959771D880122006EE20D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F859597B1D880122006EE20D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F859597C1D880122006EE20D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F859597F1D880122006EE20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F85959801D880122006EE20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F85959821D880122006EE20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = iSieve_main_view/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
+			};
+			name = Debug;
+		};
+		F85959831D880122006EE20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = iSieve_main_view/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F859596A1D880122006EE20D /* Build configuration list for PBXProject "iSieve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F859597F1D880122006EE20D /* Debug */,
+				F85959801D880122006EE20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F85959811D880122006EE20D /* Build configuration list for PBXNativeTarget "iSieve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F85959821D880122006EE20D /* Debug */,
+				F85959831D880122006EE20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F81696A01DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F81696A11DAB0FA8004DB934 /* PasswordsDB.xcdatamodel */,
+			);
+			currentVersion = F81696A11DAB0FA8004DB934 /* PasswordsDB.xcdatamodel */;
+			path = PasswordsDB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F85959671D880122006EE20D /* Project object */;
+}
