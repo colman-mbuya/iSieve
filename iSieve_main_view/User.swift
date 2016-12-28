@@ -18,6 +18,8 @@ class User: NSManagedObject {
             print("Inserting \(username):\(password)")
             user.username = username
             user.password = password
+            user.unique_id = 1
+            print("Inserted\(user.username):\(user.password)")
         }
     }
     
@@ -25,7 +27,8 @@ class User: NSManagedObject {
         let request = NSFetchRequest(entityName: "User")
         request.predicate = NSPredicate(format: "username = %@", username)
         
-        if ((try? context.executeFetchRequest(request))?.first as? User) != nil {
+        if let user = ((try? context.executeFetchRequest(request))?.first as? User) {
+            print("User object returned \(user.username)")
             return true
         }
         

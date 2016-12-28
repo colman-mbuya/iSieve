@@ -17,13 +17,19 @@ class LoginLogic {
     
     init(moc: NSManagedObjectContext){
         self.managedObjectContext = moc
+        insertNewUser("tester123", password: "pass")
     }
     
     func Login(username: String, password: String) -> Bool {
-        if username == testUsername && password == testPassword {
+        if isRegistered(username) {
+            print("here then return true")
             //Do session init here
             return true
         }
+        //if username == testUsername && password == testPassword {
+            //Do session init here
+          //  return true
+        //}
         return false
     }
     
@@ -39,7 +45,7 @@ class LoginLogic {
     
     private func isRegistered(username: String) -> Bool {
         var exist = false
-        managedObjectContext?.performBlock {
+        managedObjectContext?.performBlockAndWait {
             exist = User.doesUsernameExist(username, inManagedObjectContext: self.managedObjectContext!)
             do{
                 try self.managedObjectContext?.save()
