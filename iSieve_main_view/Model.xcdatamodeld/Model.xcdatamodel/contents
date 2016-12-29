@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2657" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="PasswordEntry" representedClassName=".PasswordEntry" syncable="YES">
+    <entity name="PasswordEntries" representedClassName="PasswordEntries" syncable="YES">
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unique_id" optional="YES" attributeType="String" syncable="YES"/>
@@ -8,14 +8,14 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="password_entries" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="User" representedClassName=".User" syncable="YES">
+    <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unique_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="password_entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PasswordEntry" inverseName="owner" inverseEntity="PasswordEntry" syncable="YES"/>
+        <relationship name="password_entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PasswordEntries" inverseName="owner" inverseEntity="PasswordEntries" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PasswordEntry" positionX="-54" positionY="-9" width="128" height="133"/>
-        <element name="User" positionX="-252" positionY="0" width="128" height="103"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="PasswordEntries" positionX="117" positionY="-12" width="128" height="28"/>
     </elements>
 </model>

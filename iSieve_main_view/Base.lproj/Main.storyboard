@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +12,7 @@
         <!--All Entries Table View Controller-->
         <scene sceneID="iHq-cA-XVP">
             <objects>
-                <tableViewController id="lat-Ej-092" customClass="AllEntriesTableViewController" customModule="iSieve_main_view" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="lat-Ej-092" customClass="AllEntriesTableViewController" customModule="iSieve" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JQP-F7-Xoo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,11 +22,11 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZuI-Iq-nbU" id="iV8-xi-8EA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="42t-6D-nHK">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,7 +71,7 @@
         <!--Entry View Controller-->
         <scene sceneID="HJl-de-UAl">
             <objects>
-                <viewController id="Nah-BM-HV5" customClass="EntryViewController" customModule="iSieve_main_view" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Nah-BM-HV5" customClass="EntryViewController" customModule="iSieve" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YkG-xL-sRZ"/>
                         <viewControllerLayoutGuide type="bottom" id="IJv-4E-czy"/>
@@ -255,7 +254,7 @@
         <!--Login View Controller-->
         <scene sceneID="W6P-u6-6xF">
             <objects>
-                <viewController id="tIy-MY-8Ig" customClass="LoginViewController" customModule="iSieve_main_view" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tIy-MY-8Ig" customClass="LoginViewController" customModule="iSieve" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Pjv-OZ-rTw"/>
                         <viewControllerLayoutGuide type="bottom" id="fwY-nU-hqg"/>

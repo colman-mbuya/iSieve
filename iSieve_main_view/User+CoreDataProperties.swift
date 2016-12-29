@@ -1,22 +1,37 @@
 //
 //  User+CoreDataProperties.swift
-//  iSieve_main_view
+//  iSieve
 //
-//  Created by Marty Mcfly on 10/10/2016.
+//  Created by Marty Mcfly on 30/12/2016.
 //  Copyright © 2016 Marty Mcfly. All rights reserved.
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
+//  This file was automatically generated and should not be edited.
 //
 
 import Foundation
 import CoreData
 
+
+extension User {
+    @NSManaged public var username: String?
+    @NSManaged public var unique_id: String?
+    @NSManaged public var password: String?
+    @NSManaged public var password_entries: NSSet?
+
+}
+
+// MARK: Generated accessors for password_entries
 extension User {
 
-    @NSManaged var username: String?
-    @NSManaged var password: String?
-    @NSManaged var unique_id: NSNumber?
-    @NSManaged var password_entries: NSSet?
+    @objc(addPassword_entriesObject:)
+    @NSManaged public func addToPassword_entries(_ value: PasswordEntries)
+
+    @objc(removePassword_entriesObject:)
+    @NSManaged public func removeFromPassword_entries(_ value: PasswordEntries)
+
+    @objc(addPassword_entries:)
+    @NSManaged public func addToPassword_entries(_ values: NSSet)
+
+    @objc(removePassword_entries:)
+    @NSManaged public func removeFromPassword_entries(_ values: NSSet)
 
 }

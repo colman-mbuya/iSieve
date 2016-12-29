@@ -1,25 +1,26 @@
 //
-//  User.swift
-//  iSieve_main_view
+//  User+CoreDataClass.swift
+//  iSieve
 //
-//  Created by Marty Mcfly on 10/10/2016.
+//  Created by Marty Mcfly on 29/12/2016.
 //  Copyright © 2016 Marty Mcfly. All rights reserved.
 //
 
 import Foundation
 import CoreData
 
-
-class User: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
+@objc(User)
+public class User: NSManagedObject {
     class func insertNewUser(username: String, password: String, inManagedObjectContext context: NSManagedObjectContext) {
+        print("in INU")
         if let user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: context) as? User {
-            print("Inserting \(username):\(password)")
+            print("in let")
             user.username = username
             user.password = password
-            user.unique_id = 1
-            print("Inserted\(user.username):\(user.password)")
+            let uuid = NSUUID().UUIDString
+            user.unique_id = uuid
+            print(uuid)
+            print("Inserted\(user.username):\(user.password) UUID \(uuid)")
         }
     }
     
@@ -34,5 +35,17 @@ class User: NSManagedObject {
         
         return false
     }
-
+    
+    class func verifyCredentials(username: String, password: String, inManagedObjectContext context: NSManagedObjectContext) -> Bool {
+        let request = NSFetchRequest(entityName: "User")
+        request.predicate = NSPredicate(format: "username = %@ AND password = %@", username, password)
+        
+        if ((try? context.executeFetchRequest(request))?.first as? User) != nil {
+            return true
+        }
+        
+        return false
+    }
+    
+    
 }

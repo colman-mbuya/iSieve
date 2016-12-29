@@ -1,6 +1,6 @@
 //
 //  LoginLogic.swift
-//  Practice1LoginPage
+//  iSieve
 //
 //  Created by Marty Mcfly on 25/08/2016.
 //  Copyright © 2016 Marty Mcfly. All rights reserved.
@@ -10,8 +10,6 @@ import Foundation
 import CoreData
 
 class LoginLogic {
-    private var testUsername = "Tester"
-    private var testPassword = "Secure"
     
     var managedObjectContext: NSManagedObjectContext?
     
@@ -21,16 +19,12 @@ class LoginLogic {
     }
     
     func Login(username: String, password: String) -> Bool {
-        if isRegistered(username) {
-            print("here then return true")
-            //Do session init here
-            return true
+        var verified = false
+        managedObjectContext?.performBlockAndWait {
+            verified = User.verifyCredentials(username, password: password, inManagedObjectContext: self.managedObjectContext!)
         }
-        //if username == testUsername && password == testPassword {
-            //Do session init here
-          //  return true
-        //}
-        return false
+        
+        return verified
     }
     
     func Register(username: String, password: String) -> Bool {
@@ -39,7 +33,6 @@ class LoginLogic {
             return true
         }
         
-        //Do registration here
         return false
     }
     
@@ -47,11 +40,6 @@ class LoginLogic {
         var exist = false
         managedObjectContext?.performBlockAndWait {
             exist = User.doesUsernameExist(username, inManagedObjectContext: self.managedObjectContext!)
-            do{
-                try self.managedObjectContext?.save()
-            } catch let error {
-                print("Core Data Error: \(error)")
-            }
         }
         
         return exist
