@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import CoreData
 
 class EntryViewController: UIViewController {
     
-    private var EntryTitle = "", Username = "", URL = "", Password = ""
     
+    private struct Storyboard {
+        static let ViewEntriesSegue = "viewEntriesSegue"
+    }
+    
+    var ManagedObjectContext: NSManagedObjectContext = ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!
+    
+    private var EntryTitle = "", Username = "", URL = "", Password = ""
     @IBOutlet weak var Entry_Title: UITextField!
     @IBOutlet weak var Entry_Username: UITextField!
     @IBOutlet weak var Entry_URL: UITextField!
@@ -37,10 +44,24 @@ class EntryViewController: UIViewController {
         print(Username)
         print(URL)
         print(Password)
+        
+        //Store user details here. Probably need to move this to a model class #SpaghettiCode..
+        ManagedObjectContext.performBlock {
+        PasswordEntries.insertNewPasswordEntry("tester123", username: self.Username, password: self.Password, title: self.EntryTitle, url: self.URL, inManagedObjectContext: self.ManagedObjectContext)
+            do{
+                try self.ManagedObjectContext.save()
+            } catch let error {
+                print("Core Data Error: \(error)")
+            }
+        }
+
+        
+        performSegueWithIdentifier(Storyboard.ViewEntriesSegue, sender: "OKBtnTapped")
     }
 
     
     @IBAction func CancelBtnTapped(sender: UIButton) {
+        performSegueWithIdentifier(Storyboard.ViewEntriesSegue, sender: "CnlBtnTapped")
     }
 
     
@@ -69,14 +90,11 @@ class EntryViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
     }
-    */
-
+   
 }

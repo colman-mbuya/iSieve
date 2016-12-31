@@ -245,6 +245,7 @@
                         <outlet property="Entry_URL" destination="rnu-aV-gPm" id="WYw-fo-f0L"/>
                         <outlet property="Entry_Username" destination="cSi-72-6Ec" id="Yx9-FJ-BAe"/>
                         <outlet property="TopLabel" destination="GQI-w6-h6z" id="5OG-Q4-RkB"/>
+                        <segue destination="lat-Ej-092" kind="show" identifier="viewEntriesSegue" id="EnG-pG-3Wp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KVp-0h-JQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -361,4 +362,7 @@
             <point key="canvasLocation" x="171" y="-26"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="EnG-pG-3Wp"/>
+    </inferredMetricsTieBreakers>
 </document>
