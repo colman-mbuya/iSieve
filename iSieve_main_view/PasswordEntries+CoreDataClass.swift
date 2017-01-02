@@ -35,5 +35,17 @@ public class PasswordEntries: NSManagedObject {
     class func deletePasswordEntry(uniqueID: String) {
         // to do
     }
+    
+    class func getPasswordEntry(uniqueID: String, inManagedObjectContext context: NSManagedObjectContext) -> PasswordEntries? {
+        let request = NSFetchRequest(entityName: "PasswordEntries")
+        request.predicate = NSPredicate(format: "unique_id = %@", uniqueID)
+        
+        if let PasswordEntry = ((try? context.executeFetchRequest(request))?.first as? PasswordEntries) {
+            print("User object returned \(PasswordEntry.title)")
+            return PasswordEntry
+        }
+        
+        return nil
+    }
 
 }

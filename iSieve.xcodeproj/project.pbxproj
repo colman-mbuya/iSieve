@@ -18,6 +18,7 @@
 		F871F6101E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */; };
 		F871F6111E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60E1E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift */; };
 		F871F6121E15C2E9004928FA /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60F1E15C2E9004928FA /* User+CoreDataClass.swift */; };
+		F871F6141E1AED65004928FA /* CoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F6131E1AED65004928FA /* CoreDataTableViewController.swift */; };
 		F8FE4C341DA53C7F0036DA5B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */; };
 		F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntries+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F871F60E1E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntries+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F871F60F1E15C2E9004928FA /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F871F6131E1AED65004928FA /* CoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewController.swift; sourceTree = "<group>"; };
 		F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,6 +56,7 @@
 		F81696B31DAB15EB004DB934 /* Core_Data */ = {
 			isa = PBXGroup;
 			children = (
+				F871F6131E1AED65004928FA /* CoreDataTableViewController.swift */,
 				F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */,
 				F871F60E1E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift */,
 				F871F60F1E15C2E9004928FA /* User+CoreDataClass.swift */,
@@ -187,6 +190,7 @@
 				F871F60C1E15C152004928FA /* Model.xcdatamodeld in Sources */,
 				F871F6051E15A7DB004928FA /* User+CoreDataProperties.swift in Sources */,
 				F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */,
+				F871F6141E1AED65004928FA /* CoreDataTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
