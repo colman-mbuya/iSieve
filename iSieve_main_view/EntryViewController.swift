@@ -28,6 +28,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var Entry_Password: UITextField!
     @IBOutlet weak var Entry_Repeat: UITextField!
     @IBOutlet weak var TopLabel: UILabel!
+    @IBOutlet weak var Bottom_Constraint: NSLayoutConstraint!
 
     @IBAction func OKBtnTapped(sender: UIButton) {
         EntryTitle = Entry_Title.text ?? ""
@@ -67,15 +68,51 @@ class EntryViewController: UIViewController {
         performSegueWithIdentifier(Storyboard.ViewEntriesSegue, sender: "CnlBtnTapped")
     }
     
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+
         updateFields()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        // 1
+        var userInfo = notification.userInfo!
+        // 2
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        // 3
+        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+        // 4
+        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
+        //5
+        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
+            self.Bottom_Constraint.constant += changeInHeight
+        })
+        
     }
     
     private func updateFields() {

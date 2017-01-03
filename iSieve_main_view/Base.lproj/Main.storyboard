@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -246,6 +247,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="BVC-SH-iqg"/>
                     <connections>
+                        <outlet property="Bottom_Constraint" destination="Zx1-uG-MPh" id="BFZ-G4-dbw"/>
                         <outlet property="Entry_Password" destination="3yw-jF-gb3" id="J8C-7R-E8h"/>
                         <outlet property="Entry_Repeat" destination="7ay-hI-nC7" id="nLy-TV-y8s"/>
                         <outlet property="Entry_Title" destination="qjV-L2-dCK" id="ofP-6r-5rw"/>
