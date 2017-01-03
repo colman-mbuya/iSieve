@@ -30,6 +30,7 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var TopLabel: UILabel!
     @IBOutlet weak var Bottom_Constraint: NSLayoutConstraint!
 
+
     @IBAction func OKBtnTapped(sender: UIButton) {
         EntryTitle = Entry_Title.text ?? ""
         Username = Entry_Username.text ?? ""
@@ -83,6 +84,28 @@ class EntryViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 
         updateFields()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        customiseTextFields(Entry_Title)
+        customiseTextFields(Entry_URL)
+        customiseTextFields(Entry_Username)
+        customiseTextFields(Entry_Password)
+        customiseTextFields(Entry_Repeat)
+    }
+    
+    private func customiseTextFields(textField: UITextField) {
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderWidth = width
+        border.borderColor = UIColor.orangeColor().CGColor
+        
+        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height: textField.frame.size.height)
+        
+        textField.borderStyle = UITextBorderStyle.None
+        textField.layer.addSublayer(border)
+        textField.layer.masksToBounds = true
+
     }
 
     override func didReceiveMemoryWarning() {
