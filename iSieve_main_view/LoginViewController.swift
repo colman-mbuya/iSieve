@@ -15,10 +15,17 @@ class LoginViewController: UIViewController {
         static let LoginRegisteredSegue = "login_register"
     }
     @IBOutlet weak var UsernameTextField: UITextField!
-    @IBOutlet weak var PasswordTextField: UITextField!
+//    @IBOutlet weak var PasswordTextField: UITextField!
     @IBOutlet weak var StatusLabel: UILabel!
+    @IBOutlet weak var PasswordTextField: HideShowPasswordTextField!
   
     private var loginLogic = LoginLogic(moc: ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        setupPasswordTextField()
+    }
     
     @IBAction func ButtonTouched(sender: UIButton) {
         let Username = UsernameTextField.text
@@ -54,6 +61,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("\(segue.identifier)")
         if segue.identifier == Storyboard.LoginRegisteredSegue {
@@ -79,4 +87,47 @@ extension UIViewController {
         }
     }
 }
+
+// MARK: UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, textField string: String) -> Bool {
+        return PasswordTextField.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        PasswordTextField.textFieldDidEndEditing(textField)
+    }
+}
+
+// MARK: HideShowPasswordTextFieldDelegate
+// Implementing this delegate is entirely optional.
+// It's useful when you want to show the user that their password is valid.
+extension LoginViewController: HideShowPasswordTextFieldDelegate {
+    func isValidPassword(password: String) -> Bool {
+        return password.characters.count > 7
+    }
+}
+
+// MARK: Private helpers
+extension LoginViewController {
+    private func setupPasswordTextField() {
+        PasswordTextField.passwordDelegate = self
+        PasswordTextField.delegate = self
+        /*PasswordTextField.borderStyle = .None
+        PasswordTextField.clearButtonMode = .WhileEditing
+        PasswordTextField.layer.borderWidth = 0.5
+        PasswordTextField.layer.borderColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0).CGColor
+        PasswordTextField.borderStyle = UITextBorderStyle.None
+        PasswordTextField.clipsToBounds = true
+        PasswordTextField.layer.cornerRadius = 0
+        
+        PasswordTextField.rightView?.tintColor = UIColor(red: 0.204, green: 0.624, blue: 0.847, alpha: 1)
+        
+        
+        // left view hack to add padding
+        PasswordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 3))
+        PasswordTextField.leftViewMode = .Always*/
+    }
+}
+
 

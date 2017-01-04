@@ -23,15 +23,15 @@ extension User {
 extension User {
 
     @objc(addPassword_entriesObject:)
-    @NSManaged public func addToPassword_entries(_ value: PasswordEntries)
+    @NSManaged public func addToPassword_entries(value: PasswordEntries)
 
     @objc(removePassword_entriesObject:)
-    @NSManaged public func removeFromPassword_entries(_ value: PasswordEntries)
+    @NSManaged public func removeFromPassword_entries(value: PasswordEntries)
 
     @objc(addPassword_entries:)
-    @NSManaged public func addToPassword_entries(_ values: NSSet)
+    @NSManaged public func addToPassword_entries(values: NSSet)
 
     @objc(removePassword_entries:)
-    @NSManaged public func removeFromPassword_entries(_ values: NSSet)
+    @NSManaged public func removeFromPassword_entries(values: NSSet)
 
 }

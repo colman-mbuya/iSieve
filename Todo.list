@@ -1,0 +1,8 @@
+- TouchID authentication using LA framework
+- Keychain access. Maybe store the login password in the keychain with insecure access controls
+- Document storage. Not quite sure how we will introduce this to the app. The idea is to store some sensitive docs in Documents without encryption and iCloud backup restrictions
+
+Optional:
+- Password Policy. The code we added for hiding and showing passwords seems to have this functionality. Have a look there and in the repo:
+	https://github.com/Guidebook/HideShowPasswordTextField
+	-- edit: turns out the password length check it does, is just to highlight once a user has entered a password with chars > 7. Once this is done it shows a tick next to the eye icons

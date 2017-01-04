@@ -63,10 +63,9 @@ class AllEntriesTableViewController: CoreDataTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.cellIdentifier, forIndexPath: indexPath)
-        print("cellforrowatindexpath")
+        
         // Configure the cell...
         if let passwordEntry = fetchedResultsController?.objectAtIndexPath(indexPath) as? PasswordEntries {
-            print("configuring cell...")
             var entryTitle: String?
             var entryID: String?
             passwordEntry.managedObjectContext?.performBlockAndWait {
@@ -83,8 +82,7 @@ class AllEntriesTableViewController: CoreDataTableViewController {
         return cell
     }
     
-    func addTapped(sender: UIBarButtonItem){
-        print("buttontapped")
+    func addTapped(sender: UIBarButtonItem) {
         performSegueWithIdentifier(Storyboard.EntrySegue, sender: "New Entry")
     }
 
@@ -98,17 +96,33 @@ class AllEntriesTableViewController: CoreDataTableViewController {
 
     
     // Override this to support deletion of entries by swiping.
-/*    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             //Delete from the model here
-            data.removeAtIndex(indexPath.row)
+            //data.removeAtIndex(indexPath.row)
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                print("in if let cell")
+                if let uniqueID = cell.detailTextLabel?.text {
+                    print("in if let uniqueID")
+                    moc.performBlockAndWait {
+                        PasswordEntries.deletePasswordEntry(uniqueID, inManagedObjectContext: self.moc)
+                        do{
+                            try self.moc.save()
+                        } catch let error {
+                            print("Core Data Error: \(error)")
+                        }
+                    }
+                }
+                updateTable()
+            }
+            
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            //tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-  */
+
     private func updateTable() {
         print("in updateTable")
         printDatabaseStatistics()

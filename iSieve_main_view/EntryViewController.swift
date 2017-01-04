@@ -25,38 +25,36 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var Entry_Title: UITextField!
     @IBOutlet weak var Entry_Username: UITextField!
     @IBOutlet weak var Entry_URL: UITextField!
-    @IBOutlet weak var Entry_Password: UITextField!
-    @IBOutlet weak var Entry_Repeat: UITextField!
+    //@IBOutlet weak var Entry_Password: UITextField!
+    @IBOutlet weak var Entry_Password: HideShowPasswordTextField!
     @IBOutlet weak var TopLabel: UILabel!
     @IBOutlet weak var Bottom_Constraint: NSLayoutConstraint!
+    
 
 
     @IBAction func OKBtnTapped(sender: UIButton) {
         EntryTitle = Entry_Title.text ?? ""
         Username = Entry_Username.text ?? ""
         URL = Entry_URL.text ?? ""
-        let pwd = Entry_Password.text ?? ""
-        let rpt = Entry_Repeat.text ?? ""
-        if pwd == rpt {
-            Password = pwd
-        }
-        // To do: Need to fix this to display some sort of error on non matching password
-        else{
-            Password = ""
-        }
-        
-        print(EntryTitle)
-        print(Username)
-        print(URL)
-        print(Password)
+        Password = Entry_Password.text ?? ""
         
         //Store user details here. Probably need to move this to a model class #SpaghettiCode..
         ManagedObjectContext.performBlock {
-        PasswordEntries.insertNewPasswordEntry(self.sessionID!, username: self.Username, password: self.Password, title: self.EntryTitle, url: self.URL, inManagedObjectContext: self.ManagedObjectContext)
-            do{
-                try self.ManagedObjectContext.save()
-            } catch let error {
-                print("Core Data Error: \(error)")
+            if self.entryToDisplay == "New Entry" {
+                PasswordEntries.insertNewPasswordEntry(self.sessionID!, username: self.Username, password: self.Password, title: self.EntryTitle, url: self.URL, inManagedObjectContext: self.ManagedObjectContext)
+                do{
+                    try self.ManagedObjectContext.save()
+                } catch let error {
+                    print("Core Data Error: \(error)")
+                }
+            }
+            else {
+                PasswordEntries.modifyPasswordEntry(self.entryToDisplay!, user: self.sessionID!, username: self.Username, password: self.Password, title: self.EntryTitle, url: self.URL, inManagedObjectContext: self.ManagedObjectContext)
+                do{
+                    try self.ManagedObjectContext.save()
+                } catch let error {
+                    print("Core Data Error: \(error)")
+                }
             }
         }
 
@@ -80,9 +78,9 @@ class EntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EntryViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EntryViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        setupPasswordTextField()
         updateFields()
     }
     
@@ -91,7 +89,6 @@ class EntryViewController: UIViewController {
         customiseTextFields(Entry_URL)
         customiseTextFields(Entry_Username)
         customiseTextFields(Entry_Password)
-        customiseTextFields(Entry_Repeat)
     }
     
     private func customiseTextFields(textField: UITextField) {
@@ -147,7 +144,6 @@ class EntryViewController: UIViewController {
                     self.Entry_URL.text = passwordEntry.url
                     self.Entry_Username.text = passwordEntry.username
                     self.Entry_Password.text = passwordEntry.password
-                    self.Entry_Repeat.text = passwordEntry.password
                 }
             }
         }
@@ -170,4 +166,46 @@ class EntryViewController: UIViewController {
         }
     }
    
+}
+
+// MARK: UITextFieldDelegate
+extension EntryViewController: UITextFieldDelegate {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, textField string: String) -> Bool {
+        return Entry_Password.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        Entry_Password.textFieldDidEndEditing(textField)
+    }
+}
+
+// MARK: HideShowPasswordTextFieldDelegate
+// Implementing this delegate is entirely optional.
+// It's useful when you want to show the user that their password is valid.
+extension EntryViewController: HideShowPasswordTextFieldDelegate {
+    func isValidPassword(password: String) -> Bool {
+        return password.characters.count > 7
+    }
+}
+
+// MARK: Private helpers
+extension EntryViewController {
+    private func setupPasswordTextField() {
+        Entry_Password.passwordDelegate = self
+        Entry_Password.delegate = self
+        /*PasswordTextField.borderStyle = .None
+         PasswordTextField.clearButtonMode = .WhileEditing
+         PasswordTextField.layer.borderWidth = 0.5
+         PasswordTextField.layer.borderColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1.0).CGColor
+         PasswordTextField.borderStyle = UITextBorderStyle.None
+         PasswordTextField.clipsToBounds = true
+         PasswordTextField.layer.cornerRadius = 0
+         
+         PasswordTextField.rightView?.tintColor = UIColor(red: 0.204, green: 0.624, blue: 0.847, alpha: 1)
+         
+         
+         // left view hack to add padding
+         PasswordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 3))
+         PasswordTextField.leftViewMode = .Always*/
+    }
 }
