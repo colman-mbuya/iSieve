@@ -31,6 +31,7 @@ class AllEntriesTableViewController: CoreDataTableViewController {
         self.tableView.separatorColor = UIColor.orangeColor()
         
         let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(AllEntriesTableViewController.addTapped(_:)))
+        self.navigationItem.hidesBackButton = true
 
         self.navigationItem.rightBarButtonItems = [add]
         // Uncomment the following line to preserve selection between presentations
@@ -177,8 +178,8 @@ class AllEntriesTableViewController: CoreDataTableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Storyboard.EntrySegue{
-            let destinationvc = segue.destinationViewController
-            if let entryvc = destinationvc as? EntryViewController{
+            //let destinationvc = segue.destinationViewController
+            if let entryvc = segue.destinationViewController.contentViewController as? EntryViewController{
                 entryvc.sessionID = self.sessionID ?? "Nothing"
                 if let selectedCell = sender as? UITableViewCell {
                     entryvc.entryToDisplay = selectedCell.detailTextLabel?.text ?? "Nothing"
@@ -192,5 +193,5 @@ class AllEntriesTableViewController: CoreDataTableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-
+    
 }

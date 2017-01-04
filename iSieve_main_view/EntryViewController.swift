@@ -159,8 +159,7 @@ class EntryViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Storyboard.ViewEntriesSegue {
-            let destinationvc = segue.destinationViewController
-            if let allentriesvc = destinationvc as? AllEntriesTableViewController{
+            if let allentriesvc = segue.destinationViewController.contentViewController as? AllEntriesTableViewController{
                 allentriesvc.sessionID = sessionID!
             }
         }
