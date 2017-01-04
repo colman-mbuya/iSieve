@@ -21,6 +21,20 @@ class LoginViewController: UIViewController {
   
     private var loginLogic = LoginLogic(moc: ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!)
     
+    var sessionID: String {
+        get {
+            if let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("sessionID") as? String {
+                return returnValue
+            } else {
+                return "Invalid Session" //Default value
+            }
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: "sessionID")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,8 +57,9 @@ class LoginViewController: UIViewController {
                     StatusLabel.text = "Username/Password Incorrect"
                 }
                 else{
-                    let Session = Username
-                    performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: Session)
+                    
+                    sessionID = Username!
+                    performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
                 }
             }
             else if sender.currentTitle == "Register" {
@@ -54,8 +69,8 @@ class LoginViewController: UIViewController {
                 }
                 else{
                     //Create Account here
-                    let Session = Username
-                    performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: Session)
+                    sessionID = Username!
+                    performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
                 }
             }
         }
@@ -63,7 +78,7 @@ class LoginViewController: UIViewController {
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("\(segue.identifier)")
+        /*print("\(segue.identifier)")
         if segue.identifier == Storyboard.LoginRegisteredSegue {
             if let allentryvc = segue.destinationViewController.contentViewController as? AllEntriesTableViewController {
                 if let sessionID = sender as? String {
@@ -71,7 +86,7 @@ class LoginViewController: UIViewController {
                     allentryvc.sessionID = sessionID ?? "Error"
                 }
             }
-        }
+        }*/
         
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

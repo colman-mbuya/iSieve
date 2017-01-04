@@ -17,7 +17,21 @@ class AllEntriesTableViewController: CoreDataTableViewController {
          //       "Melon", "Nectarine", "Olive", "Orange", "Papaya", "Peach",
            //     "Pear", "Pineapple", "Raspberry", "Strawberry"]
     
-    var sessionID: String? { didSet { updateTable() } }
+    var sessionID: String {
+        get {
+            if let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("sessionID") as? String {
+                return returnValue
+            } else {
+                return "Invalid Session" //Default value
+            }
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: "sessionID")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            updateTable()
+        }
+    }
+    
     var moc = ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!
     
     private struct Storyboard {
@@ -25,6 +39,7 @@ class AllEntriesTableViewController: CoreDataTableViewController {
         static let EntrySegue = "viewEntrySegue"
     }
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +49,15 @@ class AllEntriesTableViewController: CoreDataTableViewController {
         self.navigationItem.hidesBackButton = true
 
         self.navigationItem.rightBarButtonItems = [add]
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.revealViewController().rearViewRevealWidth = 100
+        }
+        
+        updateTable()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -123,14 +147,14 @@ class AllEntriesTableViewController: CoreDataTableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
+    
     private func updateTable() {
         print("in updateTable")
         printDatabaseStatistics()
-        if sessionID?.characters.count > 0 {
-            print("ID: \(sessionID!)")
+        if sessionID.characters.count > 0 {
+            print("ID: \(sessionID)")
             let request = NSFetchRequest(entityName: "PasswordEntries")
-            request.predicate = NSPredicate(format: "owner.username = %@", sessionID!)
+            request.predicate = NSPredicate(format: "owner.username = %@", sessionID)
             request.sortDescriptors = [NSSortDescriptor(
                 key: "title",
                 ascending: true,
@@ -189,7 +213,6 @@ class AllEntriesTableViewController: CoreDataTableViewController {
                 }
             }
         }
-        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F81A9B011E1D76230008A53C /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F81A9B001E1D76230008A53C /* SWRevealViewController.m */; };
+		F81A9B031E1D78DE0008A53C /* MenuTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81A9B021E1D78DE0008A53C /* MenuTableTableViewController.swift */; };
+		F81A9B051E1D84090008A53C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */; };
 		F85959731D880122006EE20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959721D880122006EE20D /* AppDelegate.swift */; };
 		F85959781D880122006EE20D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F85959761D880122006EE20D /* Main.storyboard */; };
 		F859597A1D880122006EE20D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85959791D880122006EE20D /* Assets.xcassets */; };
@@ -35,6 +38,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F81A9AFE1E1D76230008A53C /* iSieve-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iSieve-Bridging-Header.h"; sourceTree = "<group>"; };
+		F81A9AFF1E1D76230008A53C /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		F81A9B001E1D76230008A53C /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		F81A9B021E1D78DE0008A53C /* MenuTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableTableViewController.swift; sourceTree = "<group>"; };
+		F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		F859596F1D880122006EE20D /* iSieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSieve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85959721D880122006EE20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F85959771D880122006EE20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -88,6 +96,16 @@
 			name = Core_Data;
 			sourceTree = "<group>";
 		};
+		F81A9AFD1E1D75AE0008A53C /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F81A9AFF1E1D76230008A53C /* SWRevealViewController.h */,
+				F81A9B001E1D76230008A53C /* SWRevealViewController.m */,
+				F81A9AFE1E1D76230008A53C /* iSieve-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
 		F826D3781E1CE7DA00B1A1DD /* Password_TextField_Functions */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,13 +143,16 @@
 		F85959711D880122006EE20D /* iSieve_main_view */ = {
 			isa = PBXGroup;
 			children = (
+				F81A9AFD1E1D75AE0008A53C /* SWRevealViewController */,
 				F826D3781E1CE7DA00B1A1DD /* Password_TextField_Functions */,
 				F85959721D880122006EE20D /* AppDelegate.swift */,
 				F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */,
 				F85959761D880122006EE20D /* Main.storyboard */,
+				F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */,
 				F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */,
 				F85959871D8802D0006EE20D /* EntryViewController.swift */,
 				F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */,
+				F81A9B021E1D78DE0008A53C /* MenuTableTableViewController.swift */,
 				F81696B31DAB15EB004DB934 /* Core_Data */,
 				F85959841D880159006EE20D /* Supporting_Files */,
 			);
@@ -237,9 +258,12 @@
 				F882A9741E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift in Sources */,
 				F871F6111E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift in Sources */,
 				F85959731D880122006EE20D /* AppDelegate.swift in Sources */,
+				F81A9B031E1D78DE0008A53C /* MenuTableTableViewController.swift in Sources */,
+				F81A9B011E1D76230008A53C /* SWRevealViewController.m in Sources */,
 				F871F6101E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift in Sources */,
 				F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */,
 				F871F60C1E15C152004928FA /* Model.xcdatamodeld in Sources */,
+				F81A9B051E1D84090008A53C /* SettingsTableViewController.swift in Sources */,
 				F871F6051E15A7DB004928FA /* User+CoreDataProperties.swift in Sources */,
 				F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */,
 				F871F6141E1AED65004928FA /* CoreDataTableViewController.swift in Sources */,
@@ -366,6 +390,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iSieve_main_view/iSieve-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 			};
@@ -381,6 +406,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iSieve_main_view/iSieve-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
