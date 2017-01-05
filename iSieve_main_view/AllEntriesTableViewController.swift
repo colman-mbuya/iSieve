@@ -11,12 +11,6 @@ import CoreData
 
 class AllEntriesTableViewController: CoreDataTableViewController {
     
-   // var data = ["Apple", "Apricot", "Banana", "Blueberry", "Cantaloupe", "Cherry",
-     //           "Clementine", "Coconut", "Cranberry", "Fig", "Grape", "Grapefruit",
-       //         "Kiwi fruit", "Lemon", "Lime", "Lychee", "Mandarine", "Mango",
-         //       "Melon", "Nectarine", "Olive", "Orange", "Papaya", "Peach",
-           //     "Pear", "Pineapple", "Raspberry", "Strawberry"]
-    
     var sessionID: String {
         get {
             if let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("sessionID") as? String {
@@ -50,13 +44,6 @@ class AllEntriesTableViewController: CoreDataTableViewController {
 
         self.navigationItem.rightBarButtonItems = [add]
         
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.revealViewController().rearViewRevealWidth = 100
-        }
-        
         updateTable()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -68,6 +55,12 @@ class AllEntriesTableViewController: CoreDataTableViewController {
     override func viewWillAppear(animated: Bool) {
         self.title = sessionID
         print(sessionID)
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.revealViewController().rearViewRevealWidth = 100
+        }
     }
 
     override func didReceiveMemoryWarning() {

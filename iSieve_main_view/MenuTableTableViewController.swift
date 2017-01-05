@@ -106,7 +106,7 @@ class MenuTableTableViewController: UITableViewController {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) {
             if let selectedCell = cell.textLabel?.text {
                 if selectedCell == Storyboard.LogOutLabel {
-                    sessionID = ""
+                    //sessionID = ""
                     performSegueWithIdentifier(Storyboard.LogoutSegue, sender: Storyboard.LogOutLabel)
                 }
                 

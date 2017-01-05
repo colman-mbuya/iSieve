@@ -15,7 +15,6 @@ class LoginViewController: UIViewController {
         static let LoginRegisteredSegue = "login_register"
     }
     @IBOutlet weak var UsernameTextField: UITextField!
-//    @IBOutlet weak var PasswordTextField: UITextField!
     @IBOutlet weak var StatusLabel: UILabel!
     @IBOutlet weak var PasswordTextField: HideShowPasswordTextField!
   
@@ -38,7 +37,15 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if sessionID.characters.count > 0{
+            UsernameTextField.text = sessionID
+        }
         setupPasswordTextField()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        customiseTextFields(UsernameTextField)
+        customiseTextFields(PasswordTextField)
     }
     
     @IBAction func ButtonTouched(sender: UIButton) {
@@ -142,6 +149,21 @@ extension LoginViewController {
         // left view hack to add padding
         PasswordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 3))
         PasswordTextField.leftViewMode = .Always*/
+    }
+}
+
+extension UIViewController {
+    public func customiseTextFields(textField: UITextField) {
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderWidth = width
+        border.borderColor = UIColor.orangeColor().CGColor
+        
+        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height: textField.frame.size.height)
+        
+        textField.borderStyle = UITextBorderStyle.None
+        textField.layer.addSublayer(border)
+        textField.layer.masksToBounds = true
     }
 }
 

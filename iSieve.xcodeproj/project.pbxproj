@@ -16,6 +16,8 @@
 		F859597D1D880122006EE20D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F859597B1D880122006EE20D /* LaunchScreen.storyboard */; };
 		F85959861D88029B006EE20D /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */; };
 		F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959871D8802D0006EE20D /* EntryViewController.swift */; };
+		F871B62E1E1E664700DCAFA7 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871B62B1E1E664700DCAFA7 /* KeychainItemAccessibility.swift */; };
+		F871B62F1E1E664700DCAFA7 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871B62C1E1E664700DCAFA7 /* KeychainWrapper.swift */; };
 		F871F6051E15A7DB004928FA /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F6011E15A7DB004928FA /* User+CoreDataProperties.swift */; };
 		F871F60C1E15C152004928FA /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F871F60A1E15C152004928FA /* Model.xcdatamodeld */; };
 		F871F6101E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */; };
@@ -51,6 +53,10 @@
 		F859597E1D880122006EE20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewController.swift; sourceTree = "<group>"; };
 		F85959871D8802D0006EE20D /* EntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
+		F871B62B1E1E664700DCAFA7 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		F871B62C1E1E664700DCAFA7 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		F871B62D1E1E664700DCAFA7 /* SwiftKeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftKeychainWrapper.h; sourceTree = "<group>"; };
+		F871B6301E1E6F3100DCAFA7 /* iSieve.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iSieve.entitlements; sourceTree = "<group>"; };
 		F871F6011E15A7DB004928FA /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F871F60B1E15C152004928FA /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntries+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 		F85959661D880122006EE20D = {
 			isa = PBXGroup;
 			children = (
+				F871B6301E1E6F3100DCAFA7 /* iSieve.entitlements */,
 				F85959711D880122006EE20D /* iSieve_main_view */,
 				F85959701D880122006EE20D /* Products */,
 			);
@@ -143,6 +150,7 @@
 		F85959711D880122006EE20D /* iSieve_main_view */ = {
 			isa = PBXGroup;
 			children = (
+				F8D793871E1E63BA0037586A /* KeychainWrapper */,
 				F81A9AFD1E1D75AE0008A53C /* SWRevealViewController */,
 				F826D3781E1CE7DA00B1A1DD /* Password_TextField_Functions */,
 				F85959721D880122006EE20D /* AppDelegate.swift */,
@@ -167,6 +175,16 @@
 				F859597E1D880122006EE20D /* Info.plist */,
 			);
 			name = Supporting_Files;
+			sourceTree = "<group>";
+		};
+		F8D793871E1E63BA0037586A /* KeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				F871B62B1E1E664700DCAFA7 /* KeychainItemAccessibility.swift */,
+				F871B62C1E1E664700DCAFA7 /* KeychainWrapper.swift */,
+				F871B62D1E1E664700DCAFA7 /* SwiftKeychainWrapper.h */,
+			);
+			name = KeychainWrapper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +221,11 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H35XGDE5BA;
 						LastSwiftMigration = 0810;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -257,8 +280,10 @@
 				F871F6121E15C2E9004928FA /* User+CoreDataClass.swift in Sources */,
 				F882A9741E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift in Sources */,
 				F871F6111E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift in Sources */,
+				F871B62E1E1E664700DCAFA7 /* KeychainItemAccessibility.swift in Sources */,
 				F85959731D880122006EE20D /* AppDelegate.swift in Sources */,
 				F81A9B031E1D78DE0008A53C /* MenuTableTableViewController.swift in Sources */,
+				F871B62F1E1E664700DCAFA7 /* KeychainWrapper.swift in Sources */,
 				F81A9B011E1D76230008A53C /* SWRevealViewController.m in Sources */,
 				F871F6101E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift in Sources */,
 				F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */,
@@ -385,8 +410,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = iSieve.entitlements;
 				DEVELOPMENT_TEAM = H35XGDE5BA;
 				INFOPLIST_FILE = iSieve_main_view/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -401,8 +428,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = iSieve.entitlements;
 				DEVELOPMENT_TEAM = H35XGDE5BA;
 				INFOPLIST_FILE = iSieve_main_view/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";

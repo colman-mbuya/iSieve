@@ -91,20 +91,6 @@ class EntryViewController: UIViewController {
         customiseTextFields(Entry_Password)
     }
     
-    private func customiseTextFields(textField: UITextField) {
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderWidth = width
-        border.borderColor = UIColor.orangeColor().CGColor
-        
-        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height: textField.frame.size.height)
-        
-        textField.borderStyle = UITextBorderStyle.None
-        textField.layer.addSublayer(border)
-        textField.layer.masksToBounds = true
-
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -120,15 +106,10 @@ class EntryViewController: UIViewController {
     }
 
     func adjustingHeight(show:Bool, notification:NSNotification) {
-        // 1
         var userInfo = notification.userInfo!
-        // 2
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        // 3
         let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-        // 4
         let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
-        //5
         UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
             self.Bottom_Constraint.constant += changeInHeight
         })

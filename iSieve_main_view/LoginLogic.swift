@@ -15,22 +15,34 @@ class LoginLogic {
     
     init(moc: NSManagedObjectContext){
         self.managedObjectContext = moc
-        insertNewUser("tester123", password: "pass")
+        //insertNewUser("tester123", password: "pass")
     }
     
     func Login(username: String, password: String) -> Bool {
-        var verified = false
-        managedObjectContext?.performBlockAndWait {
+        if isRegistered(username) {
+            if let pwdInKeychain = KeychainWrapper.defaultKeychainWrapper().stringForKey(username, withAccessibility: KeychainItemAccessibility.Always) {
+                if pwdInKeychain == password {
+                    return true
+                }
+            }
+        }
+        /*managedObjectContext?.performBlockAndWait {
             verified = User.verifyCredentials(username, password: password, inManagedObjectContext: self.managedObjectContext!)
         }
         
-        return verified
+        return verified*/
+        
+        return false
     }
     
     func Register(username: String, password: String) -> Bool {
         if !isRegistered(username) {
-            insertNewUser(username, password: password)
-            return true
+            let saveSuccessful: Bool = KeychainWrapper.defaultKeychainWrapper().setString(password, forKey: username, withAccessibility: KeychainItemAccessibility.Always)
+            if saveSuccessful {
+                insertNewUser(username, password: "")
+                return true
+            }
+            return false
         }
         
         return false
