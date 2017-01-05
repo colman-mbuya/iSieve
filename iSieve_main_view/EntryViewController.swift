@@ -25,7 +25,6 @@ class EntryViewController: UIViewController {
     @IBOutlet weak var Entry_Title: UITextField!
     @IBOutlet weak var Entry_Username: UITextField!
     @IBOutlet weak var Entry_URL: UITextField!
-    //@IBOutlet weak var Entry_Password: UITextField!
     @IBOutlet weak var Entry_Password: HideShowPasswordTextField!
     @IBOutlet weak var TopLabel: UILabel!
     @IBOutlet weak var Bottom_Constraint: NSLayoutConstraint!
@@ -68,11 +67,11 @@ class EntryViewController: UIViewController {
     }
     
     func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(true, notification: notification)
+        adjustingHeight(true, notification: notification, bottomConstraint: Bottom_Constraint)
     }
     
     func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(false, notification: notification)
+        adjustingHeight(false, notification: notification, bottomConstraint: Bottom_Constraint)
     }
     
     override func viewDidLoad() {
@@ -103,17 +102,6 @@ class EntryViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
-
-    func adjustingHeight(show:Bool, notification:NSNotification) {
-        var userInfo = notification.userInfo!
-        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
-        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
-            self.Bottom_Constraint.constant += changeInHeight
-        })
-        
     }
     
     private func updateFields() {
@@ -189,3 +177,18 @@ extension EntryViewController {
          PasswordTextField.leftViewMode = .Always*/
     }
 }
+
+extension UIViewController {
+    func adjustingHeight(show:Bool, notification:NSNotification, bottomConstraint:NSLayoutConstraint) {
+        var userInfo = notification.userInfo!
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
+        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
+            bottomConstraint.constant += changeInHeight
+        })
+        
+    }
+}
+
+

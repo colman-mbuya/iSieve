@@ -13,10 +13,13 @@ class LoginViewController: UIViewController {
 
     private struct Storyboard {
         static let LoginRegisteredSegue = "login_register"
+        static let UsernameTextFieldPlaceholder = "Username"
+        static let PasswordTextFieldPlaceholder = "Password"
     }
     @IBOutlet weak var UsernameTextField: UITextField!
-    @IBOutlet weak var StatusLabel: UILabel!
     @IBOutlet weak var PasswordTextField: HideShowPasswordTextField!
+    @IBOutlet weak var BottomConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var TouchIDButton: UIButton!
   
     private var loginLogic = LoginLogic(moc: ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!)
     
@@ -36,10 +39,14 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        UsernameTextField.delegate = self
         if sessionID.characters.count > 0{
             UsernameTextField.text = sessionID
         }
+        addIconsToTextFields(UsernameTextField)
+        addIconsToTextFields(PasswordTextField)
+        //setupTouchIDButton()
         setupPasswordTextField()
     }
     
@@ -48,20 +55,81 @@ class LoginViewController: UIViewController {
         customiseTextFields(PasswordTextField)
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification, bottomConstraint: BottomConstraint)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification, bottomConstraint: BottomConstraint)
+    }
+    
+    /*private func setupTouchIDButton() {
+        let size = CGSize(width: 40, height: 40)
+        var resizedImage: UIImage = UIImage(named: "ItunesArtwork.png")!
+        if let image = UIImage(named: "ItunesArtwork.png") {
+            resizedImage = imageWithImage(image, scaledToSize: size)
+        }
+        
+        TouchIDButton.setImage(resizedImage, forState: UIControlState.Normal)
+    }*/
+    
+    private func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    private func addIconsToTextFields(textField: UITextField) {
+        let imageView = UIImageView();
+        var image: UIImage
+        if textField.placeholder == Storyboard.UsernameTextFieldPlaceholder {
+            image = UIImage(named: "usernameIcon.png")!
+        }
+        else {
+            image = UIImage(named: "passwordIcon.png")!
+        }
+        
+        imageView.image = image;
+        
+        let leftView = UIView()
+        leftView.addSubview(imageView)
+        
+        leftView.frame = CGRect(x: 0, y: 0, width: 30, height: 40)
+        imageView.frame = CGRect(x: 0, y: 10, width: 20, height: 20)
+
+        //view.addSubview(leftView)
+        textField.leftViewMode = UITextFieldViewMode.Always
+        textField.leftView = leftView;
+        
+    }
+    
     @IBAction func ButtonTouched(sender: UIButton) {
         let Username = UsernameTextField.text
         let Password = PasswordTextField.text
         
         if Username!.isEmpty || Password!.isEmpty {
-            StatusLabel.textColor = UIColor.orangeColor()
-            StatusLabel.text = "Enter a username and/or password"
+            let alert = UIAlertController(title: "Alert", message: "Enter a username and/or password", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            //StatusLabel.textColor = UIColor.orangeColor()
+            //StatusLabel.text = "Enter a username and/or password"
         }
         else {
-            StatusLabel.textColor = UIColor.orangeColor()
+            //StatusLabel.textColor = UIColor.orangeColor()
             if sender.currentTitle == "Login" {
                 //Once web services are implemented, spinner will probably be activated here
                 if !loginLogic.Login(Username!, password: Password!) {
-                    StatusLabel.text = "Username/Password Incorrect"
+                    let alert = UIAlertController(title: "Alert", message: "Username/Password Incorrect", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    //StatusLabel.text = "Username/Password Incorrect"
                 }
                 else{
                     
@@ -72,7 +140,10 @@ class LoginViewController: UIViewController {
             else if sender.currentTitle == "Register" {
                 //Once web services are implemented, spinner will probably be activated here
                 if !loginLogic.Register(Username!, password: Password!) {
-                    StatusLabel.text = "Username already exists"
+                    let alert = UIAlertController(title: "Alert", message: "Username already exists", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    //StatusLabel.text = ""
                 }
                 else{
                     //Create Account here
