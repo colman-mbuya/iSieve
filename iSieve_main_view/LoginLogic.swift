@@ -35,6 +35,13 @@ class LoginLogic {
         return false
     }
     
+    func LoginWithTouchID(username: String) -> Bool {
+        if KeychainWrapper.defaultKeychainWrapper().stringForKey(username, withAccessibility: KeychainItemAccessibility.Always) != nil {
+                return true
+        }
+        return false
+    }
+    
     func Register(username: String, password: String) -> Bool {
         if !isRegistered(username) {
             let saveSuccessful: Bool = KeychainWrapper.defaultKeychainWrapper().setString(password, forKey: username, withAccessibility: KeychainItemAccessibility.Always)

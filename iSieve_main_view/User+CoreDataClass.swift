@@ -47,5 +47,15 @@ public class User: NSManagedObject {
         return false
     }
     
+    class func getPasswordEntries(username: String, inManagedObjectContext context: NSManagedObjectContext) -> [PasswordEntries]? {
+        let request = NSFetchRequest(entityName: "User")
+        request.predicate = NSPredicate(format: "username = %@", username)
+        
+        if let user = ((try? context.executeFetchRequest(request))?.first as? User) {
+            return user.password_entries?.allObjects as? [PasswordEntries]
+        }
+        
+        return nil
+    }
     
 }

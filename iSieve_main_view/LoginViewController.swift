@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import LocalAuthentication
 
 class LoginViewController: UIViewController {
 
@@ -46,7 +47,6 @@ class LoginViewController: UIViewController {
         }
         addIconsToTextFields(UsernameTextField)
         addIconsToTextFields(PasswordTextField)
-        //setupTouchIDButton()
         setupPasswordTextField()
     }
     
@@ -67,16 +67,6 @@ class LoginViewController: UIViewController {
     func keyboardWillHide(notification:NSNotification) {
         adjustingHeight(false, notification: notification, bottomConstraint: BottomConstraint)
     }
-    
-    /*private func setupTouchIDButton() {
-        let size = CGSize(width: 40, height: 40)
-        var resizedImage: UIImage = UIImage(named: "ItunesArtwork.png")!
-        if let image = UIImage(named: "ItunesArtwork.png") {
-            resizedImage = imageWithImage(image, scaledToSize: size)
-        }
-        
-        TouchIDButton.setImage(resizedImage, forState: UIControlState.Normal)
-    }*/
     
     private func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
@@ -113,45 +103,116 @@ class LoginViewController: UIViewController {
     @IBAction func ButtonTouched(sender: UIButton) {
         let Username = UsernameTextField.text
         let Password = PasswordTextField.text
+        var message: String = ""
         
-        if Username!.isEmpty || Password!.isEmpty {
-            let alert = UIAlertController(title: "Alert", message: "Enter a username and/or password", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-            //StatusLabel.textColor = UIColor.orangeColor()
-            //StatusLabel.text = "Enter a username and/or password"
+        if sender.tag == 7 {
+            if Username!.isEmpty {
+                let alert = UIAlertController(title: "Alert", message: "Enter a username", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            else {
+                let context = LAContext();
+                var error:NSError?
+                let reason:String = "Please authenticate using TouchID.";
+                
+                if (context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error))  
+                {
+                    context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: { (success, error) -> Void in
+                        if (success) {
+                            print("Auth was OK");
+                            if !self.loginLogic.LoginWithTouchID(Username!) {
+                                let alert = UIAlertController(title: "Alert", message: "Incorrect Username", preferredStyle: UIAlertControllerStyle.Alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                                self.presentViewController(alert, animated: true, completion: nil)
+                            }
+                            else{
+                                
+                                self.sessionID = Username!
+                                self.performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: self.sessionID)
+                            }
+                        }
+                        else
+                        {
+                            //You should do better handling of error here but I'm being lazy
+                            print("Error received: %d", error!);
+                            switch error!.code {
+                            case LAError.AuthenticationFailed.rawValue:
+                                message = "Authentication Failed"
+                            case LAError.UserCancel.rawValue:
+                                message = ""
+                            case LAError.SystemCancel.rawValue:
+                                message = "The system canceled!"
+                            case LAError.UserFallback.rawValue:
+                                message = ""
+                            default:
+                                message = "Something went wrong"
+                            }
+                            if !message.isEmpty{
+                                let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                                self.presentViewController(alert, animated: true, completion: nil)
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    switch error!.code {
+                    case LAError.TouchIDNotAvailable.rawValue:
+                        message = "No Touch ID on device"
+                    case LAError.TouchIDNotEnrolled.rawValue:
+                        message = "No fingers enrolled"
+                    case LAError.PasscodeNotSet.rawValue:
+                        message = "No passcode set"
+                    default:
+                        message = "Something went wrong getting local auth"
+                    }
+                    let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+            
         }
         else {
-            //StatusLabel.textColor = UIColor.orangeColor()
-            if sender.currentTitle == "Login" {
-                //Once web services are implemented, spinner will probably be activated here
-                if !loginLogic.Login(Username!, password: Password!) {
-                    let alert = UIAlertController(title: "Alert", message: "Username/Password Incorrect", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    //StatusLabel.text = "Username/Password Incorrect"
-                }
-                else{
-                    
-                    sessionID = Username!
-                    performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
-                }
+            if Username!.isEmpty || Password!.isEmpty {
+                let alert = UIAlertController(title: "Alert", message: "Enter a username and/or password", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
-            else if sender.currentTitle == "Register" {
-                //Once web services are implemented, spinner will probably be activated here
-                if !loginLogic.Register(Username!, password: Password!) {
-                    let alert = UIAlertController(title: "Alert", message: "Username already exists", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    //StatusLabel.text = ""
+            else {
+                if sender.currentTitle == "Login" {
+                    //Once web services are implemented, spinner will probably be activated here
+                    if !loginLogic.Login(Username!, password: Password!) {
+                        let alert = UIAlertController(title: "Alert", message: "Username/Password Incorrect", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        //StatusLabel.text = "Username/Password Incorrect"
+                    }
+                    else{
+                        
+                        sessionID = Username!
+                        performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
+                    }
                 }
-                else{
-                    //Create Account here
-                    sessionID = Username!
-                    performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
+                else if sender.currentTitle == "Register" {
+                    //Once web services are implemented, spinner will probably be activated here
+                    if !loginLogic.Register(Username!, password: Password!) {
+                        let alert = UIAlertController(title: "Alert", message: "Username already exists", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        //StatusLabel.text = ""
+                    }
+                    else{
+                        //Create Account here
+                        sessionID = Username!
+                        performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
+                    }
                 }
             }
         }
+        
     }
     
     

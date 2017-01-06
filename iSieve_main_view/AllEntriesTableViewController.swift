@@ -59,7 +59,7 @@ class AllEntriesTableViewController: CoreDataTableViewController {
             menuButton.target = self.revealViewController()
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.revealViewController().rearViewRevealWidth = 100
+            self.revealViewController().rearViewRevealWidth = 150
         }
     }
 
