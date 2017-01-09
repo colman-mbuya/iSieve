@@ -112,9 +112,9 @@ class MenuTableTableViewController: UITableViewController {
                 
             }
         }
-        else {
+        /*else {
             super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
-        }
+        }*/
     }
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -1,6 +1,6 @@
-- TouchID authentication using LA framework
-- Keychain access. Maybe store the login password in the keychain with insecure access controls
-- Document storage. Not quite sure how we will introduce this to the app. The idea is to store some sensitive docs in Documents without encryption and iCloud backup restrictions
+- Finish refactoring and documenting code
+- Implement Parse for web services
+- Add more vulns!
 
 Optional:
 - Password Policy. The code we added for hiding and showing passwords seems to have this functionality. Have a look there and in the repo:

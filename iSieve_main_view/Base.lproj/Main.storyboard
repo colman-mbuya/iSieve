@@ -493,12 +493,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="BVC-SH-iqg"/>
                     <connections>
-                        <outlet property="Bottom_Constraint" destination="CQe-aJ-V5i" id="tLl-4I-NF7"/>
-                        <outlet property="Entry_Password" destination="3yw-jF-gb3" id="lNT-6e-Hda"/>
-                        <outlet property="Entry_Title" destination="qjV-L2-dCK" id="ofP-6r-5rw"/>
-                        <outlet property="Entry_URL" destination="rnu-aV-gPm" id="WYw-fo-f0L"/>
-                        <outlet property="Entry_Username" destination="cSi-72-6Ec" id="Yx9-FJ-BAe"/>
-                        <outlet property="TopLabel" destination="GQI-w6-h6z" id="5OG-Q4-RkB"/>
+                        <outlet property="bottomConstraint" destination="CQe-aJ-V5i" id="pl6-Dj-0bE"/>
+                        <outlet property="passwordTextField" destination="3yw-jF-gb3" id="Cbi-KK-gSD"/>
+                        <outlet property="titleTextField" destination="qjV-L2-dCK" id="vFf-Od-xcZ"/>
+                        <outlet property="topLabel" destination="GQI-w6-h6z" id="S3r-97-z7t"/>
+                        <outlet property="urlTextField" destination="rnu-aV-gPm" id="X3c-7z-1d6"/>
+                        <outlet property="usernameTextField" destination="cSi-72-6Ec" id="A4P-Db-Pru"/>
                         <segue destination="JcA-7f-A07" kind="show" identifier="viewEntriesSegue" id="5yH-Ex-BUl"/>
                     </connections>
                 </viewController>
@@ -521,7 +521,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1e-89-njN">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="659"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hfF-1l-OhZ">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hfF-1l-OhZ">
                                         <rect key="frame" x="20" y="190" width="343" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="6c2-64-wzc"/>
@@ -620,6 +620,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hXn-Ty-SY8"/>
                     <connections>
+                        <outlet property="BottomConstraint" destination="p1e-89-njN" id="t5p-8W-sEQ"/>
                         <outlet property="PasswordTextField" destination="2M9-kr-4Sz" id="wji-iC-cAU"/>
                         <outlet property="UsernameTextField" destination="hfF-1l-OhZ" id="v5y-Pa-bG6"/>
                         <segue destination="u0o-bn-gdi" kind="show" identifier="login_register" id="g0b-ww-iKl"/>
@@ -690,6 +691,6 @@
         <image name="menu" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6uO-oM-65g"/>
+        <segue reference="5yH-Ex-BUl"/>
     </inferredMetricsTieBreakers>
 </document>

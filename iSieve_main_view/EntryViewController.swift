@@ -2,6 +2,8 @@
 //  EntryViewController.swift
 //  iSieve_main_view
 //
+//  Allows a user to enter a new password entry. Also Displays a selected entry and allows a user to edit it
+//
 //  Created by Marty Mcfly on 13/09/2016.
 //  Copyright © 2016 Marty Mcfly. All rights reserved.
 //
@@ -11,69 +13,42 @@ import CoreData
 
 class EntryViewController: UIViewController {
     
-    
+    //Constants declared in the storyboard for this view
     private struct Storyboard {
-        static let ViewEntriesSegue = "viewEntriesSegue"
+        static let viewEntriesSegue = "viewEntriesSegue"
     }
     
-    var ManagedObjectContext: NSManagedObjectContext = ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!
+    private var managedObjectContext: NSManagedObjectContext = ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!
     
-    private var EntryTitle = "", Username = "", URL = "", Password = ""
+    private var entryTitle = "", entryUsername = "", entryURL = "", entryPassword = ""
+    
+    //The password entry to display. This is set in the segue prep to this VC
     var entryToDisplay: String? = ""
-    var sessionID: String? = ""
     
-    @IBOutlet weak var Entry_Title: UITextField!
-    @IBOutlet weak var Entry_Username: UITextField!
-    @IBOutlet weak var Entry_URL: UITextField!
-    @IBOutlet weak var Entry_Password: HideShowPasswordTextField!
-    @IBOutlet weak var TopLabel: UILabel!
-    @IBOutlet weak var Bottom_Constraint: NSLayoutConstraint!
-    
-
-
-    @IBAction func OKBtnTapped(sender: UIButton) {
-        EntryTitle = Entry_Title.text ?? ""
-        Username = Entry_Username.text ?? ""
-        URL = Entry_URL.text ?? ""
-        Password = Entry_Password.text ?? ""
-        
-        //Store user details here. Probably need to move this to a model class #SpaghettiCode..
-        ManagedObjectContext.performBlock {
-            if self.entryToDisplay == "New Entry" {
-                PasswordEntries.insertNewPasswordEntry(self.sessionID!, username: self.Username, password: self.Password, title: self.EntryTitle, url: self.URL, inManagedObjectContext: self.ManagedObjectContext)
-                do{
-                    try self.ManagedObjectContext.save()
-                } catch let error {
-                    print("Core Data Error: \(error)")
-                }
-            }
-            else {
-                PasswordEntries.modifyPasswordEntry(self.entryToDisplay!, user: self.sessionID!, username: self.Username, password: self.Password, title: self.EntryTitle, url: self.URL, inManagedObjectContext: self.ManagedObjectContext)
-                do{
-                    try self.ManagedObjectContext.save()
-                } catch let error {
-                    print("Core Data Error: \(error)")
-                }
+    //The sessionID; to be set after successful authentication. Currently this will be the username
+    var sessionID: String {
+        get {
+            if let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("sessionID") as? String {
+                return returnValue
+            } else {
+                return "Invalid Session" //Default value
             }
         }
-
-        
-        performSegueWithIdentifier(Storyboard.ViewEntriesSegue, sender: "OKBtnTapped")
+        set {
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: "sessionID")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
     }
 
+    //MARK: - Storyboard outlets
+    @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: HideShowPasswordTextField!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    @IBAction func CancelBtnTapped(sender: UIButton) {
-        performSegueWithIdentifier(Storyboard.ViewEntriesSegue, sender: "CnlBtnTapped")
-    }
-    
-    func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(true, notification: notification, bottomConstraint: Bottom_Constraint)
-    }
-    
-    func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(false, notification: notification, bottomConstraint: Bottom_Constraint)
-    }
-    
+    //MARK: - VC Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -84,19 +59,10 @@ class EntryViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        customiseTextFields(Entry_Title)
-        customiseTextFields(Entry_URL)
-        customiseTextFields(Entry_Username)
-        customiseTextFields(Entry_Password)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+        customiseTextFields(titleTextField)
+        customiseTextFields(urlTextField)
+        customiseTextFields(usernameTextField)
+        customiseTextFields(passwordTextField)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -104,32 +70,56 @@ class EntryViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    private func updateFields() {
-        if entryToDisplay != "New Entry" {
-            TopLabel.text = "View/Modify Entry"
-            ManagedObjectContext.performBlockAndWait {
-                if let passwordEntry = PasswordEntries.getPasswordEntry(self.entryToDisplay!, inManagedObjectContext: self.ManagedObjectContext) {
-                    self.Entry_Title.text = passwordEntry.title
-                    self.Entry_URL.text = passwordEntry.url
-                    self.Entry_Username.text = passwordEntry.username
-                    self.Entry_Password.text = passwordEntry.password
+    //MARK: - Button Tapped Methods
+    //Stores a new or modifies an existing password entry and segues to allentryvc
+    @IBAction func OKBtnTapped(sender: UIButton) {
+        entryTitle = titleTextField.text ?? ""
+        entryUsername = usernameTextField.text ?? ""
+        entryURL = urlTextField.text ?? ""
+        entryPassword = passwordTextField.text ?? ""
+        
+        //Store/modify entry in core data. Probably need to move this to a logic (model) class ..
+        managedObjectContext.performBlock {
+            //New entry
+            if self.entryToDisplay == "New Entry" {
+                PasswordEntries.insertNewPasswordEntry(self.sessionID, username: self.entryUsername, password: self.entryPassword, title: self.entryTitle, url: self.entryURL, inManagedObjectContext: self.managedObjectContext)
+                do{
+                    try self.managedObjectContext.save()
+                } catch let error {
+                    print("Core Data Error: \(error)")
+                }
+            }
+            else { //Modifying existing entry
+                PasswordEntries.modifyPasswordEntry(self.entryToDisplay!, user: self.sessionID, username: self.entryUsername, password: self.entryPassword, title: self.entryTitle, url: self.entryURL, inManagedObjectContext: self.managedObjectContext)
+                do{
+                    try self.managedObjectContext.save()
+                } catch let error {
+                    print("Core Data Error: \(error)")
                 }
             }
         }
-        else {
-            TopLabel.text = "New Entry"
-        }
+
+        //Segue to allentryvc
+        performSegueWithIdentifier(Storyboard.viewEntriesSegue, sender: "OKBtnTapped")
     }
 
     
+    @IBAction func CancelBtnTapped(sender: UIButton) {
+        performSegueWithIdentifier(Storyboard.viewEntriesSegue, sender: "CnlBtnTapped")
+    }
+
+    //I cant remember what this function was for....
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == Storyboard.ViewEntriesSegue {
+        if segue.identifier == Storyboard.viewEntriesSegue {
             if let allentriesvc = segue.destinationViewController.contentViewController as? AllEntriesTableViewController{
-                allentriesvc.sessionID = sessionID!
+                allentriesvc.sessionID = sessionID
             }
         }
     }
@@ -139,11 +129,11 @@ class EntryViewController: UIViewController {
 // MARK: UITextFieldDelegate
 extension EntryViewController: UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, textField string: String) -> Bool {
-        return Entry_Password.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+        return passwordTextField.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        Entry_Password.textFieldDidEndEditing(textField)
+        passwordTextField.textFieldDidEndEditing(textField)
     }
 }
 
@@ -152,15 +142,15 @@ extension EntryViewController: UITextFieldDelegate {
 // It's useful when you want to show the user that their password is valid.
 extension EntryViewController: HideShowPasswordTextFieldDelegate {
     func isValidPassword(password: String) -> Bool {
-        return password.characters.count > 7
+        return true
     }
 }
 
-// MARK: Private helpers
+// MARK: Private helper functions
 extension EntryViewController {
     private func setupPasswordTextField() {
-        Entry_Password.passwordDelegate = self
-        Entry_Password.delegate = self
+        passwordTextField.passwordDelegate = self
+        passwordTextField.delegate = self
         /*PasswordTextField.borderStyle = .None
          PasswordTextField.clearButtonMode = .WhileEditing
          PasswordTextField.layer.borderWidth = 0.5
@@ -178,17 +168,37 @@ extension EntryViewController {
     }
 }
 
-extension UIViewController {
-    func adjustingHeight(show:Bool, notification:NSNotification, bottomConstraint:NSLayoutConstraint) {
-        var userInfo = notification.userInfo!
-        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
-        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
-        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
-        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
-            bottomConstraint.constant += changeInHeight
-        })
-        
+// keyboard functions
+extension EntryViewController {
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification, bottomConstraint: bottomConstraint)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification, bottomConstraint: bottomConstraint)
     }
 }
+
+// Private helper function to setup and populate the fields in the view
+extension EntryViewController {
+    private func updateFields() {
+        if entryToDisplay != "New Entry" {
+            topLabel.text = "View/Modify Entry"
+            managedObjectContext.performBlockAndWait {
+                if let passwordEntry = PasswordEntries.getPasswordEntry(self.entryToDisplay!, inManagedObjectContext: self.managedObjectContext) {
+                    self.titleTextField.text = passwordEntry.title
+                    self.urlTextField.text = passwordEntry.url
+                    self.usernameTextField.text = passwordEntry.username
+                    self.passwordTextField.text = passwordEntry.password
+                }
+            }
+        }
+        else {
+            topLabel.text = "New Entry"
+        }
+    }
+}
+
+
 
 

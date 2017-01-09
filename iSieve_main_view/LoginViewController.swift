@@ -12,18 +12,25 @@ import LocalAuthentication
 
 class LoginViewController: UIViewController {
 
+    //Struct to define constants declared in the storyboard for this VC
     private struct Storyboard {
-        static let LoginRegisteredSegue = "login_register"
-        static let UsernameTextFieldPlaceholder = "Username"
-        static let PasswordTextFieldPlaceholder = "Password"
+        static let loginRegisteredSegue = "login_register"
+        static let usernameTextFieldPlaceholder = "Username"
+        static let passwordTextFieldPlaceholder = "Password"
+        static let loginButtonTitle = "Login"
+        static let registerButtonTitle = "Register"
+        static let touchIDButtonTag = 7
     }
-    @IBOutlet weak var UsernameTextField: UITextField!
-    @IBOutlet weak var PasswordTextField: HideShowPasswordTextField!
-    @IBOutlet weak var BottomConstraint: NSLayoutConstraint!
-    //@IBOutlet weak var TouchIDButton: UIButton!
-  
+    
+    //Text Field Outlets
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: HideShowPasswordTextField!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint! // Had to delete this from the storyboard. Need to probably redo the constraints for this view at some point
+    
+    //Creating new LoginLogic object to authenticate/register users
     private var loginLogic = LoginLogic(moc: ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!)
     
+    //The sessionID; to be set after successful authentication. Currently this will be the username
     var sessionID: String {
         get {
             if let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("sessionID") as? String {
@@ -38,78 +45,37 @@ class LoginViewController: UIViewController {
         }
     }
     
+    //MARK: VC Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UsernameTextField.delegate = self
-        if sessionID.characters.count > 0{
-            UsernameTextField.text = sessionID
+        usernameTextField.delegate = self
+        if sessionID.characters.count > 0 {
+            usernameTextField.text = sessionID
         }
-        addIconsToTextFields(UsernameTextField)
-        addIconsToTextFields(PasswordTextField)
-        setupPasswordTextField()
+        addIconsToTextFields(usernameTextField) //Adding icons to the left
+        addIconsToTextFields(passwordTextField) //of these fields
+        setupPasswordTextField()                //Setup password text field with show & hide button
     }
     
     override func viewDidLayoutSubviews() {
-        customiseTextFields(UsernameTextField)
-        customiseTextFields(PasswordTextField)
+        customiseTextFields(usernameTextField) //Show only the bottom border + other stylistic changes.
+        customiseTextFields(passwordTextField) //This didn't work properly when I had it in viewDidLoad()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(true, notification: notification, bottomConstraint: BottomConstraint)
-    }
-    
-    func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(false, notification: notification, bottomConstraint: BottomConstraint)
-    }
-    
-    private func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
-        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
-    private func addIconsToTextFields(textField: UITextField) {
-        let imageView = UIImageView();
-        var image: UIImage
-        if textField.placeholder == Storyboard.UsernameTextFieldPlaceholder {
-            image = UIImage(named: "usernameIcon.png")!
-        }
-        else {
-            image = UIImage(named: "passwordIcon.png")!
-        }
-        
-        imageView.image = image;
-        
-        let leftView = UIView()
-        leftView.addSubview(imageView)
-        
-        leftView.frame = CGRect(x: 0, y: 0, width: 30, height: 40)
-        imageView.frame = CGRect(x: 0, y: 10, width: 20, height: 20)
-
-        //view.addSubview(leftView)
-        textField.leftViewMode = UITextFieldViewMode.Always
-        textField.leftView = leftView;
-        
-    }
-    
+    //Button Action method for the Login, register and TouchID buttons
     @IBAction func ButtonTouched(sender: UIButton) {
-        let Username = UsernameTextField.text
-        let Password = PasswordTextField.text
+        let Username = usernameTextField.text
+        let Password = passwordTextField.text
         var message: String = ""
+        var title : String = ""
         
-        if sender.tag == 7 {
+        //TouchID button tapped. TouchID login will only work if a valid (already registered) username has been entered.
+        if sender.tag == Storyboard.touchIDButtonTag {
             if Username!.isEmpty {
-                let alert = UIAlertController(title: "Alert", message: "Enter a username", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                title = "Alert"
+                message = "Enter a username"
+                showPopupAlertMessage(title, message: message)
             }
             else {
                 let context = LAContext();
@@ -120,153 +86,118 @@ class LoginViewController: UIViewController {
                 {
                     context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: { (success, error) -> Void in
                         if (success) {
-                            print("Auth was OK");
-                            if !self.loginLogic.LoginWithTouchID(Username!) {
-                                let alert = UIAlertController(title: "Alert", message: "Incorrect Username", preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                                self.presentViewController(alert, animated: true, completion: nil)
+                            if !self.loginLogic.verifyUsername(Username!) {
+                                title = "Error"
+                                message = "Incorrect username"
+                                self.showPopupAlertMessage(title, message: message)
                             }
                             else{
-                                
                                 self.sessionID = Username!
-                                self.performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: self.sessionID)
+                                self.performSegueWithIdentifier(Storyboard.loginRegisteredSegue, sender: self.sessionID)
                             }
                         }
-                        else
+                        else    //TouchID failed
                         {
-                            //You should do better handling of error here but I'm being lazy
                             print("Error received: %d", error!);
                             switch error!.code {
-                            case LAError.AuthenticationFailed.rawValue:
-                                message = "Authentication Failed"
-                            case LAError.UserCancel.rawValue:
-                                message = ""
-                            case LAError.SystemCancel.rawValue:
-                                message = "The system canceled!"
-                            case LAError.UserFallback.rawValue:
-                                message = ""
-                            default:
-                                message = "Something went wrong"
+                                case LAError.AuthenticationFailed.rawValue:
+                                    message = "Authentication Failed"
+                                case LAError.UserCancel.rawValue:
+                                    message = ""
+                                case LAError.SystemCancel.rawValue:
+                                    message = "The system canceled!"
+                                case LAError.UserFallback.rawValue:
+                                    message = ""
+                                default:
+                                    message = "Something went wrong"
                             }
                             if !message.isEmpty{
-                                let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                                self.presentViewController(alert, animated: true, completion: nil)
+                                title = "Error"
+                                self.showPopupAlertMessage(title, message: message)
                             }
 
                         }
                     });
                 }
-                else {
+                else {  //Device not able to do TouchID
                     switch error!.code {
-                    case LAError.TouchIDNotAvailable.rawValue:
-                        message = "No Touch ID on device"
-                    case LAError.TouchIDNotEnrolled.rawValue:
-                        message = "No fingers enrolled"
-                    case LAError.PasscodeNotSet.rawValue:
-                        message = "No passcode set"
-                    default:
-                        message = "Something went wrong getting local auth"
+                        case LAError.TouchIDNotAvailable.rawValue:
+                            message = "No Touch ID on device"
+                        case LAError.TouchIDNotEnrolled.rawValue:
+                            message = "No fingers enrolled"
+                        case LAError.PasscodeNotSet.rawValue:
+                            message = "No passcode set"
+                        default:
+                            message = "Something went wrong getting local auth"
                     }
-                    let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    title = "Error"
+                    self.showPopupAlertMessage(title, message: message)
                 }
             }
-            
         }
-        else {
+        else { //Login or Register Button Tapped
             if Username!.isEmpty || Password!.isEmpty {
-                let alert = UIAlertController(title: "Alert", message: "Enter a username and/or password", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                title = "Alert"
+                message = "Enter a username and/or password"
+                self.showPopupAlertMessage(title, message: message)
             }
             else {
-                if sender.currentTitle == "Login" {
+                if sender.currentTitle == Storyboard.loginButtonTitle {
                     //Once web services are implemented, spinner will probably be activated here
-                    if !loginLogic.Login(Username!, password: Password!) {
-                        let alert = UIAlertController(title: "Alert", message: "Username/Password Incorrect", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        //StatusLabel.text = "Username/Password Incorrect"
+                    if !loginLogic.verifyCredentials(Username!, password: Password!) {
+                        title = "Error"
+                        message = "Username/Password Incorrect"
+                        self.showPopupAlertMessage(title, message: message)
                     }
-                    else{
-                        
+                    else { //Valid credentials entered. Set sessionID and segue to main view
                         sessionID = Username!
-                        performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
+                        performSegueWithIdentifier(Storyboard.loginRegisteredSegue, sender: sessionID)
                     }
                 }
-                else if sender.currentTitle == "Register" {
+                else if sender.currentTitle == Storyboard.registerButtonTitle {
                     //Once web services are implemented, spinner will probably be activated here
-                    if !loginLogic.Register(Username!, password: Password!) {
-                        let alert = UIAlertController(title: "Alert", message: "Username already exists", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        //StatusLabel.text = ""
+                    //Try register user. If one already exists, return false
+                    if !loginLogic.registerNewUser(Username!, password: Password!) {
+                        title = "Error"
+                        message = "Username already exists"
+                        self.showPopupAlertMessage(title, message: message)
                     }
-                    else{
-                        //Create Account here
+                    else{ //User succesfully registered. Set sessionID and segue to main view
                         sessionID = Username!
-                        performSegueWithIdentifier(Storyboard.LoginRegisteredSegue, sender: sessionID)
+                        performSegueWithIdentifier(Storyboard.loginRegisteredSegue, sender: sessionID)
                     }
                 }
             }
         }
         
-    }
-    
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        /*print("\(segue.identifier)")
-        if segue.identifier == Storyboard.LoginRegisteredSegue {
-            if let allentryvc = segue.destinationViewController.contentViewController as? AllEntriesTableViewController {
-                if let sessionID = sender as? String {
-                    print ("here \(sessionID)")
-                    allentryvc.sessionID = sessionID ?? "Error"
-                }
-            }
-        }*/
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-}
-
-extension UIViewController {
-    var contentViewController: UIViewController {
-        if let navcon = self as? UINavigationController {
-            return navcon.visibleViewController ?? self
-        } else {
-            return self
-        }
     }
 }
 
 // MARK: UITextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, textField string: String) -> Bool {
-        return PasswordTextField.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+        return passwordTextField.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        PasswordTextField.textFieldDidEndEditing(textField)
+        passwordTextField.textFieldDidEndEditing(textField)
     }
 }
 
-// MARK: HideShowPasswordTextFieldDelegate
-// Implementing this delegate is entirely optional.
-// It's useful when you want to show the user that their password is valid.
+// MARK: Password policy
+// Not currently used. You can set the password policy in the below function. Probably need to call it from somewhere.
 extension LoginViewController: HideShowPasswordTextFieldDelegate {
     func isValidPassword(password: String) -> Bool {
         return password.characters.count > 7
     }
 }
 
-// MARK: Private helpers
+// MARK: Private helpers to setup the username and password fields
 extension LoginViewController {
+    //Set hideShowPassword field delegate to self
     private func setupPasswordTextField() {
-        PasswordTextField.passwordDelegate = self
-        PasswordTextField.delegate = self
+        passwordTextField.passwordDelegate = self
+        passwordTextField.delegate = self
         /*PasswordTextField.borderStyle = .None
         PasswordTextField.clearButtonMode = .WhileEditing
         PasswordTextField.layer.borderWidth = 0.5
@@ -282,21 +213,48 @@ extension LoginViewController {
         PasswordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 3))
         PasswordTextField.leftViewMode = .Always*/
     }
-}
-
-extension UIViewController {
-    public func customiseTextFields(textField: UITextField) {
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderWidth = width
-        border.borderColor = UIColor.orangeColor().CGColor
+    
+    //Setup the icons to the left of the username and password field
+    private func addIconsToTextFields(textField: UITextField) {
+        let imageView = UIImageView();
+        var image: UIImage
+        if textField.placeholder == Storyboard.usernameTextFieldPlaceholder {
+            image = UIImage(named: "usernameIcon.png")!
+        }
+        else {
+            image = UIImage(named: "passwordIcon.png")!
+        }
         
-        border.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:  textField.frame.size.width, height: textField.frame.size.height)
+        imageView.image = image;
         
-        textField.borderStyle = UITextBorderStyle.None
-        textField.layer.addSublayer(border)
-        textField.layer.masksToBounds = true
+        let leftView = UIView()
+        leftView.addSubview(imageView)
+        
+        leftView.frame = CGRect(x: 0, y: 0, width: 30, height: 40)
+        imageView.frame = CGRect(x: 0, y: 10, width: 20, height: 20)
+        
+        //view.addSubview(leftView)
+        textField.leftViewMode = UITextFieldViewMode.Always
+        textField.leftView = leftView;
+        
     }
 }
+
+//MARK: Keyboard helper functions
+extension LoginViewController {
+    private func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    private func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification, bottomConstraint: bottomConstraint)
+    }
+    
+    private func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification, bottomConstraint: bottomConstraint)
+    }
+}
+
 
 

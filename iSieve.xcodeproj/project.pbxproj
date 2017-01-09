@@ -36,6 +36,7 @@
 		F882A9731E1CE8ED00B8B57B /* ic_password_checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9681E1CE8ED00B8B57B /* ic_password_checkmark@3x.png */; };
 		F882A9741E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882A9691E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift */; };
 		F8E051B81E1FD4F3007AD3E5 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E051B71E1FD4F3007AD3E5 /* ExportViewController.swift */; };
+		F8E051BA1E238A2C007AD3E5 /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E051B91E238A2C007AD3E5 /* ViewControllerExtensions.swift */; };
 		F8FE4C341DA53C7F0036DA5B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */; };
 		F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,7 @@
 		F882A9681E1CE8ED00B8B57B /* ic_password_checkmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password_checkmark@3x.png"; sourceTree = "<group>"; };
 		F882A9691E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordToggleVisibilityView.swift; sourceTree = "<group>"; };
 		F8E051B71E1FD4F3007AD3E5 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
+		F8E051B91E238A2C007AD3E5 /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
 		F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +160,7 @@
 				F85959721D880122006EE20D /* AppDelegate.swift */,
 				F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */,
 				F85959761D880122006EE20D /* Main.storyboard */,
+				F8E051B91E238A2C007AD3E5 /* ViewControllerExtensions.swift */,
 				F8E051B71E1FD4F3007AD3E5 /* ExportViewController.swift */,
 				F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */,
 				F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */,
@@ -285,6 +288,7 @@
 				F871F6111E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift in Sources */,
 				F871B62E1E1E664700DCAFA7 /* KeychainItemAccessibility.swift in Sources */,
 				F85959731D880122006EE20D /* AppDelegate.swift in Sources */,
+				F8E051BA1E238A2C007AD3E5 /* ViewControllerExtensions.swift in Sources */,
 				F81A9B031E1D78DE0008A53C /* MenuTableTableViewController.swift in Sources */,
 				F8E051B81E1FD4F3007AD3E5 /* ExportViewController.swift in Sources */,
 				F871B62F1E1E664700DCAFA7 /* KeychainWrapper.swift in Sources */,
