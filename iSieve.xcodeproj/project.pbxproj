@@ -7,27 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F81696A21DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F81696A01DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld */; };
-		F81696AF1DAB150A004DB934 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AB1DAB150A004DB934 /* User+CoreDataProperties.swift */; };
-		F81696B01DAB150A004DB934 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AC1DAB150A004DB934 /* User.swift */; };
-		F81696B11DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AD1DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift */; };
-		F81696B21DAB150A004DB934 /* PasswordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81696AE1DAB150A004DB934 /* PasswordEntry.swift */; };
+		F81A9B011E1D76230008A53C /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F81A9B001E1D76230008A53C /* SWRevealViewController.m */; };
+		F81A9B031E1D78DE0008A53C /* MenuTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81A9B021E1D78DE0008A53C /* MenuTableTableViewController.swift */; };
+		F81A9B051E1D84090008A53C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */; };
 		F85959731D880122006EE20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959721D880122006EE20D /* AppDelegate.swift */; };
 		F85959781D880122006EE20D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F85959761D880122006EE20D /* Main.storyboard */; };
 		F859597A1D880122006EE20D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85959791D880122006EE20D /* Assets.xcassets */; };
 		F859597D1D880122006EE20D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F859597B1D880122006EE20D /* LaunchScreen.storyboard */; };
 		F85959861D88029B006EE20D /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */; };
 		F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85959871D8802D0006EE20D /* EntryViewController.swift */; };
+		F871B62E1E1E664700DCAFA7 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871B62B1E1E664700DCAFA7 /* KeychainItemAccessibility.swift */; };
+		F871B62F1E1E664700DCAFA7 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871B62C1E1E664700DCAFA7 /* KeychainWrapper.swift */; };
+		F871F6051E15A7DB004928FA /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F6011E15A7DB004928FA /* User+CoreDataProperties.swift */; };
+		F871F60C1E15C152004928FA /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F871F60A1E15C152004928FA /* Model.xcdatamodeld */; };
+		F871F6101E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */; };
+		F871F6111E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60E1E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift */; };
+		F871F6121E15C2E9004928FA /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F60F1E15C2E9004928FA /* User+CoreDataClass.swift */; };
+		F871F6141E1AED65004928FA /* CoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F871F6131E1AED65004928FA /* CoreDataTableViewController.swift */; };
+		F882A96A1E1CE8ED00B8B57B /* HideShowPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882A95F1E1CE8ED00B8B57B /* HideShowPasswordTextField.swift */; };
+		F882A96B1E1CE8ED00B8B57B /* ic_eye_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9601E1CE8ED00B8B57B /* ic_eye_closed.png */; };
+		F882A96C1E1CE8ED00B8B57B /* ic_eye_closed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9611E1CE8ED00B8B57B /* ic_eye_closed@2x.png */; };
+		F882A96D1E1CE8ED00B8B57B /* ic_eye_closed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9621E1CE8ED00B8B57B /* ic_eye_closed@3x.png */; };
+		F882A96E1E1CE8ED00B8B57B /* ic_eye_open.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9631E1CE8ED00B8B57B /* ic_eye_open.png */; };
+		F882A96F1E1CE8ED00B8B57B /* ic_eye_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9641E1CE8ED00B8B57B /* ic_eye_open@2x.png */; };
+		F882A9701E1CE8ED00B8B57B /* ic_eye_open@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9651E1CE8ED00B8B57B /* ic_eye_open@3x.png */; };
+		F882A9711E1CE8ED00B8B57B /* ic_password_checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9661E1CE8ED00B8B57B /* ic_password_checkmark.png */; };
+		F882A9721E1CE8ED00B8B57B /* ic_password_checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9671E1CE8ED00B8B57B /* ic_password_checkmark@2x.png */; };
+		F882A9731E1CE8ED00B8B57B /* ic_password_checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F882A9681E1CE8ED00B8B57B /* ic_password_checkmark@3x.png */; };
+		F882A9741E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F882A9691E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift */; };
+		F8E051B81E1FD4F3007AD3E5 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E051B71E1FD4F3007AD3E5 /* ExportViewController.swift */; };
+		F8E051BA1E238A2C007AD3E5 /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E051B91E238A2C007AD3E5 /* ViewControllerExtensions.swift */; };
 		F8FE4C341DA53C7F0036DA5B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */; };
 		F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F81696A11DAB0FA8004DB934 /* PasswordsDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PasswordsDB.xcdatamodel; sourceTree = "<group>"; };
-		F81696AB1DAB150A004DB934 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F81696AC1DAB150A004DB934 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		F81696AD1DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F81696AE1DAB150A004DB934 /* PasswordEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordEntry.swift; sourceTree = "<group>"; };
+		F81A9AFE1E1D76230008A53C /* iSieve-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iSieve-Bridging-Header.h"; sourceTree = "<group>"; };
+		F81A9AFF1E1D76230008A53C /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		F81A9B001E1D76230008A53C /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		F81A9B021E1D78DE0008A53C /* MenuTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableTableViewController.swift; sourceTree = "<group>"; };
+		F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		F859596F1D880122006EE20D /* iSieve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSieve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85959721D880122006EE20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F85959771D880122006EE20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -36,6 +55,29 @@
 		F859597E1D880122006EE20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewController.swift; sourceTree = "<group>"; };
 		F85959871D8802D0006EE20D /* EntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
+		F871B62B1E1E664700DCAFA7 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		F871B62C1E1E664700DCAFA7 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		F871B62D1E1E664700DCAFA7 /* SwiftKeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftKeychainWrapper.h; sourceTree = "<group>"; };
+		F871B6301E1E6F3100DCAFA7 /* iSieve.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iSieve.entitlements; sourceTree = "<group>"; };
+		F871F6011E15A7DB004928FA /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F871F60B1E15C152004928FA /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntries+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F871F60E1E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PasswordEntries+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F871F60F1E15C2E9004928FA /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F871F6131E1AED65004928FA /* CoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewController.swift; sourceTree = "<group>"; };
+		F882A95F1E1CE8ED00B8B57B /* HideShowPasswordTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideShowPasswordTextField.swift; sourceTree = "<group>"; };
+		F882A9601E1CE8ED00B8B57B /* ic_eye_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_eye_closed.png; sourceTree = "<group>"; };
+		F882A9611E1CE8ED00B8B57B /* ic_eye_closed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_eye_closed@2x.png"; sourceTree = "<group>"; };
+		F882A9621E1CE8ED00B8B57B /* ic_eye_closed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_eye_closed@3x.png"; sourceTree = "<group>"; };
+		F882A9631E1CE8ED00B8B57B /* ic_eye_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_eye_open.png; sourceTree = "<group>"; };
+		F882A9641E1CE8ED00B8B57B /* ic_eye_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_eye_open@2x.png"; sourceTree = "<group>"; };
+		F882A9651E1CE8ED00B8B57B /* ic_eye_open@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_eye_open@3x.png"; sourceTree = "<group>"; };
+		F882A9661E1CE8ED00B8B57B /* ic_password_checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password_checkmark.png; sourceTree = "<group>"; };
+		F882A9671E1CE8ED00B8B57B /* ic_password_checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password_checkmark@2x.png"; sourceTree = "<group>"; };
+		F882A9681E1CE8ED00B8B57B /* ic_password_checkmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password_checkmark@3x.png"; sourceTree = "<group>"; };
+		F882A9691E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordToggleVisibilityView.swift; sourceTree = "<group>"; };
+		F8E051B71E1FD4F3007AD3E5 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
+		F8E051B91E238A2C007AD3E5 /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
 		F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,18 +96,48 @@
 		F81696B31DAB15EB004DB934 /* Core_Data */ = {
 			isa = PBXGroup;
 			children = (
-				F81696AB1DAB150A004DB934 /* User+CoreDataProperties.swift */,
-				F81696AC1DAB150A004DB934 /* User.swift */,
-				F81696AD1DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift */,
-				F81696AE1DAB150A004DB934 /* PasswordEntry.swift */,
-				F81696A01DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld */,
+				F871F6131E1AED65004928FA /* CoreDataTableViewController.swift */,
+				F871F60D1E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift */,
+				F871F60E1E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift */,
+				F871F60F1E15C2E9004928FA /* User+CoreDataClass.swift */,
+				F871F60A1E15C152004928FA /* Model.xcdatamodeld */,
+				F871F6011E15A7DB004928FA /* User+CoreDataProperties.swift */,
 			);
 			name = Core_Data;
+			sourceTree = "<group>";
+		};
+		F81A9AFD1E1D75AE0008A53C /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F81A9AFF1E1D76230008A53C /* SWRevealViewController.h */,
+				F81A9B001E1D76230008A53C /* SWRevealViewController.m */,
+				F81A9AFE1E1D76230008A53C /* iSieve-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		F826D3781E1CE7DA00B1A1DD /* Password_TextField_Functions */ = {
+			isa = PBXGroup;
+			children = (
+				F882A95F1E1CE8ED00B8B57B /* HideShowPasswordTextField.swift */,
+				F882A9601E1CE8ED00B8B57B /* ic_eye_closed.png */,
+				F882A9611E1CE8ED00B8B57B /* ic_eye_closed@2x.png */,
+				F882A9621E1CE8ED00B8B57B /* ic_eye_closed@3x.png */,
+				F882A9631E1CE8ED00B8B57B /* ic_eye_open.png */,
+				F882A9641E1CE8ED00B8B57B /* ic_eye_open@2x.png */,
+				F882A9651E1CE8ED00B8B57B /* ic_eye_open@3x.png */,
+				F882A9661E1CE8ED00B8B57B /* ic_password_checkmark.png */,
+				F882A9671E1CE8ED00B8B57B /* ic_password_checkmark@2x.png */,
+				F882A9681E1CE8ED00B8B57B /* ic_password_checkmark@3x.png */,
+				F882A9691E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift */,
+			);
+			name = Password_TextField_Functions;
 			sourceTree = "<group>";
 		};
 		F85959661D880122006EE20D = {
 			isa = PBXGroup;
 			children = (
+				F871B6301E1E6F3100DCAFA7 /* iSieve.entitlements */,
 				F85959711D880122006EE20D /* iSieve_main_view */,
 				F85959701D880122006EE20D /* Products */,
 			);
@@ -82,12 +154,19 @@
 		F85959711D880122006EE20D /* iSieve_main_view */ = {
 			isa = PBXGroup;
 			children = (
+				F8D793871E1E63BA0037586A /* KeychainWrapper */,
+				F81A9AFD1E1D75AE0008A53C /* SWRevealViewController */,
+				F826D3781E1CE7DA00B1A1DD /* Password_TextField_Functions */,
 				F85959721D880122006EE20D /* AppDelegate.swift */,
 				F8FE4C351DA53C9B0036DA5B /* LoginLogic.swift */,
 				F85959761D880122006EE20D /* Main.storyboard */,
+				F8E051B91E238A2C007AD3E5 /* ViewControllerExtensions.swift */,
+				F8E051B71E1FD4F3007AD3E5 /* ExportViewController.swift */,
+				F81A9B041E1D84090008A53C /* SettingsTableViewController.swift */,
 				F8FE4C331DA53C7F0036DA5B /* LoginViewController.swift */,
 				F85959871D8802D0006EE20D /* EntryViewController.swift */,
 				F85959851D88029B006EE20D /* AllEntriesTableViewController.swift */,
+				F81A9B021E1D78DE0008A53C /* MenuTableTableViewController.swift */,
 				F81696B31DAB15EB004DB934 /* Core_Data */,
 				F85959841D880159006EE20D /* Supporting_Files */,
 			);
@@ -102,6 +181,16 @@
 				F859597E1D880122006EE20D /* Info.plist */,
 			);
 			name = Supporting_Files;
+			sourceTree = "<group>";
+		};
+		F8D793871E1E63BA0037586A /* KeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				F871B62B1E1E664700DCAFA7 /* KeychainItemAccessibility.swift */,
+				F871B62C1E1E664700DCAFA7 /* KeychainWrapper.swift */,
+				F871B62D1E1E664700DCAFA7 /* SwiftKeychainWrapper.h */,
+			);
+			name = KeychainWrapper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,12 +220,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Marty Mcfly";
 				TargetAttributes = {
 					F859596E1D880122006EE20D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 98TJ79LRBH;
+						DevelopmentTeam = H35XGDE5BA;
+						LastSwiftMigration = 0810;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -164,8 +259,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				F859597D1D880122006EE20D /* LaunchScreen.storyboard in Resources */,
+				F882A96E1E1CE8ED00B8B57B /* ic_eye_open.png in Resources */,
+				F882A96D1E1CE8ED00B8B57B /* ic_eye_closed@3x.png in Resources */,
+				F882A9701E1CE8ED00B8B57B /* ic_eye_open@3x.png in Resources */,
+				F882A9731E1CE8ED00B8B57B /* ic_password_checkmark@3x.png in Resources */,
 				F859597A1D880122006EE20D /* Assets.xcassets in Resources */,
 				F85959781D880122006EE20D /* Main.storyboard in Resources */,
+				F882A9711E1CE8ED00B8B57B /* ic_password_checkmark.png in Resources */,
+				F882A96B1E1CE8ED00B8B57B /* ic_eye_closed.png in Resources */,
+				F882A9721E1CE8ED00B8B57B /* ic_password_checkmark@2x.png in Resources */,
+				F882A96F1E1CE8ED00B8B57B /* ic_eye_open@2x.png in Resources */,
+				F882A96C1E1CE8ED00B8B57B /* ic_eye_closed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,16 +280,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F81696A21DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld in Sources */,
-				F81696B11DAB150A004DB934 /* PasswordEntry+CoreDataProperties.swift in Sources */,
 				F8FE4C341DA53C7F0036DA5B /* LoginViewController.swift in Sources */,
+				F882A96A1E1CE8ED00B8B57B /* HideShowPasswordTextField.swift in Sources */,
 				F85959861D88029B006EE20D /* AllEntriesTableViewController.swift in Sources */,
-				F81696AF1DAB150A004DB934 /* User+CoreDataProperties.swift in Sources */,
-				F81696B01DAB150A004DB934 /* User.swift in Sources */,
+				F871F6121E15C2E9004928FA /* User+CoreDataClass.swift in Sources */,
+				F882A9741E1CE8ED00B8B57B /* PasswordToggleVisibilityView.swift in Sources */,
+				F871F6111E15C2E9004928FA /* PasswordEntries+CoreDataProperties.swift in Sources */,
+				F871B62E1E1E664700DCAFA7 /* KeychainItemAccessibility.swift in Sources */,
 				F85959731D880122006EE20D /* AppDelegate.swift in Sources */,
-				F81696B21DAB150A004DB934 /* PasswordEntry.swift in Sources */,
+				F8E051BA1E238A2C007AD3E5 /* ViewControllerExtensions.swift in Sources */,
+				F81A9B031E1D78DE0008A53C /* MenuTableTableViewController.swift in Sources */,
+				F8E051B81E1FD4F3007AD3E5 /* ExportViewController.swift in Sources */,
+				F871B62F1E1E664700DCAFA7 /* KeychainWrapper.swift in Sources */,
+				F81A9B011E1D76230008A53C /* SWRevealViewController.m in Sources */,
+				F871F6101E15C2E9004928FA /* PasswordEntries+CoreDataClass.swift in Sources */,
 				F85959881D8802D0006EE20D /* EntryViewController.swift in Sources */,
+				F871F60C1E15C152004928FA /* Model.xcdatamodeld in Sources */,
+				F81A9B051E1D84090008A53C /* SettingsTableViewController.swift in Sources */,
+				F871F6051E15A7DB004928FA /* User+CoreDataProperties.swift in Sources */,
 				F8FE4C361DA53C9B0036DA5B /* LoginLogic.swift in Sources */,
+				F871F6141E1AED65004928FA /* CoreDataTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,8 +339,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -248,7 +364,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -270,8 +386,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -287,9 +405,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -298,10 +417,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = iSieve.entitlements;
+				DEVELOPMENT_TEAM = H35XGDE5BA;
 				INFOPLIST_FILE = iSieve_main_view/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iSieve_main_view/iSieve-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
@@ -310,10 +435,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = iSieve.entitlements;
+				DEVELOPMENT_TEAM = H35XGDE5BA;
 				INFOPLIST_FILE = iSieve_main_view/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mwr.iSieve-main-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iSieve_main_view/iSieve-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
@@ -342,13 +472,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F81696A01DAB0FA8004DB934 /* PasswordsDB.xcdatamodeld */ = {
+		F871F60A1E15C152004928FA /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				F81696A11DAB0FA8004DB934 /* PasswordsDB.xcdatamodel */,
+				F871F60B1E15C152004928FA /* Model.xcdatamodel */,
 			);
-			currentVersion = F81696A11DAB0FA8004DB934 /* PasswordsDB.xcdatamodel */;
-			path = PasswordsDB.xcdatamodeld;
+			currentVersion = F871F60B1E15C152004928FA /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

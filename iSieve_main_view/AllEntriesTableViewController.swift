@@ -7,126 +7,154 @@
 //
 
 import UIKit
+import CoreData
 
-class AllEntriesTableViewController: UITableViewController {
-    
-    var data = ["Apple", "Apricot", "Banana", "Blueberry", "Cantaloupe", "Cherry",
-                "Clementine", "Coconut", "Cranberry", "Fig", "Grape", "Grapefruit",
-                "Kiwi fruit", "Lemon", "Lime", "Lychee", "Mandarine", "Mango",
-                "Melon", "Nectarine", "Olive", "Orange", "Papaya", "Peach",
-                "Pear", "Pineapple", "Raspberry", "Strawberry"]
-    var sessionID: String = ""
-    
+class AllEntriesTableViewController: CoreDataTableViewController {
+    //Constants declared in the storyboard for this VC
     private struct Storyboard {
         static let cellIdentifier = "Entries"
-        static let EntrySegue = "viewEntrySegue"
+        static let entrySegue = "viewEntrySegue"
     }
     
+    //The sessionID. Set when a user is authenticated
+    var sessionID: String {
+        get {
+            if let returnValue = NSUserDefaults.standardUserDefaults().objectForKey("sessionID") as? String {
+                return returnValue
+            } else {
+                return "Invalid Session" //Default value
+            }
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: "sessionID")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            //Every singe time the session is set, we update the table to reflect the new users password entries
+            updateTable()
+        }
+    }
+    
+    //Managed Object Context object to be used for Core Data access
+    var moc = ((UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext)!
+
+    @IBOutlet weak var menuButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorColor = UIColor.orangeColor()
         
-        let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(AllEntriesTableViewController.addTapped(_:)))
-
+        //Add the add (+) button to the view
+        let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(AllEntriesTableViewController.addButtonTapped(_:)))
+        self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItems = [add]
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        //Populate the table with password entries for the logged in user
+        updateTable()
     }
     
     override func viewWillAppear(animated: Bool) {
         self.title = sessionID
-        print(sessionID)
+        //Set up menu button
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.revealViewController().rearViewRevealWidth = 150
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-
     
+    //Ties with CoreDataTableViewController's fetchedResultController. Tl;dr, fetchedResultController will continously update the entries for the logged in user and the table will be updated with any new entries on calling updateTable(). Got this from the Stanford iOS course
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.cellIdentifier, forIndexPath: indexPath)
-
-        // Configure the cell...
-        cell.textLabel?.text = data[indexPath.row]
+        
+        //Get the entry to be displayed from fetchedResultsController
+        if let passwordEntry = fetchedResultsController?.objectAtIndexPath(indexPath) as? PasswordEntries {
+            var entryTitle: String?
+            var entryID: String?
+            passwordEntry.managedObjectContext?.performBlockAndWait {
+                entryTitle = passwordEntry.title
+                entryID = passwordEntry.unique_id
+            }
+            cell.textLabel?.text = entryTitle //The password entry title
+            cell.detailTextLabel?.text = entryID //The password entry unique ID within the core data DB
+        }
         return cell
     }
     
-    func addTapped(sender: UIBarButtonItem){
-        print("buttontapped")
-        performSegueWithIdentifier(Storyboard.EntrySegue, sender: "New Entry")
+    @objc private func addButtonTapped(sender: UIBarButtonItem) {
+        performSegueWithIdentifier(Storyboard.entrySegue, sender: "New Entry")
     }
 
     
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
- 
-
-    
-    // Override to support editing the table view.
+    // Functionality for deletion of entries. Called when a user swipes left on an entry
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            //Delete from the model here
-            data.removeAtIndex(indexPath.row)
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                if let uniqueID = cell.detailTextLabel?.text {
+                    //I should probably move this when web services are implemented, so that it's not on the main queue
+                    moc.performBlockAndWait {
+                        PasswordEntries.deletePasswordEntry(uniqueID, inManagedObjectContext: self.moc)
+                        do{
+                            try self.moc.save()
+                        } catch let error {
+                            print("Core Data Error: \(error)")
+                        }
+                    }
+                }
+                //Update the table to reflect the new list of entries after deletion
+                updateTable()
+            }
+        }
     }
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Prepare the Entry VC to display a password entry or add a new password. Segue will happen when a user taps an entry or when they tap the add button. If the former, initialise entryvc's entryToDisplay variable with the entry's unique ID. If the latter, set entryToDisplay to sender param which will be a string.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == Storyboard.EntrySegue{
-            let destinationvc = segue.destinationViewController
-            if let entryvc = destinationvc as? EntryViewController{
+        if segue.identifier == Storyboard.entrySegue {
+            if let entryvc = segue.destinationViewController.contentViewController as? EntryViewController {
+                entryvc.sessionID = self.sessionID ?? ""
                 if let selectedCell = sender as? UITableViewCell {
-                    entryvc.entryToDisplay = selectedCell.textLabel?.text ?? "Nothing"
+                    entryvc.entryToDisplay = selectedCell.detailTextLabel?.text ?? ""
                 }
-                if let addButton = sender as? String {
+                else if let addButton = sender as? String {
                         entryvc.entryToDisplay = addButton
                 }
             }
         }
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
+    
+}
 
+//Private helper functions
+extension AllEntriesTableViewController {
+    //Update the table view to reflect the logged in user's password entries
+    private func updateTable() {
+        printDatabaseStatistics()
+        if sessionID.characters.count > 0 {
+            let request = NSFetchRequest(entityName: "PasswordEntries")
+            request.predicate = NSPredicate(format: "owner.username = %@", sessionID)
+            request.sortDescriptors = [NSSortDescriptor(
+                key: "title",
+                ascending: true,
+                selector: #selector(NSString.localizedCaseInsensitiveCompare(_:))
+                )]
+            fetchedResultsController = NSFetchedResultsController(
+                fetchRequest: request,
+                managedObjectContext: moc,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+        } else {
+            fetchedResultsController = nil
+        }
+        
+    }
+    
+    //Little helper functions to print how many password entries are in the db, for all users
+    private func printDatabaseStatistics() {
+        moc.performBlock {
+            if let entriesCount = (try? self.moc.countForFetchRequest(NSFetchRequest(entityName: "PasswordEntries"))){
+                print("\(entriesCount) Passwords")
+            }
+        }
+    }
 }
